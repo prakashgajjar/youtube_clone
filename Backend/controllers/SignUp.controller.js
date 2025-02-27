@@ -12,6 +12,7 @@ const SignUp = async (req, res) => {
     if (chackUser) {
       return  res.status(401).json({ message: "User already exists" });
     }
+    console.log("")
     try {
         bcrypt.genSalt(10, (err, salt)=> {
             if (err) throw err;
