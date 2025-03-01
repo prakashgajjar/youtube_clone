@@ -5,14 +5,18 @@ import cookieParser from 'cookie-parser';
 
 const SignUp = async (req, res) => {
     const { username, password, email, profilePicture } = req.body;
+    console.log(req.body);
     if (!username || !password || !email) {
        return res.status(400).json({ message: "Please fill all the fields" });
     }
-    const chackUser = await User.findOne({ email: email })
-    if (chackUser) {
+    const checkEmail = await User.findOne({ email: email })
+    if (checkEmail) {
       return  res.status(401).json({ message: "User already exists" });
     }
-    console.log("")
+    const checkUsername = await User.findOne({ username: username})
+    if (checkUsername) {
+      return  res.status(401).json({ message: "Username already exists" });
+    }
     try {
         bcrypt.genSalt(10, (err, salt)=> {
             if (err) throw err;
@@ -24,6 +28,7 @@ const SignUp = async (req, res) => {
                     email,
                     profilePicture
                 })
+                console.log(user)
                 const LoginToken = jwt.sign({ id: user._id , email: user.email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
                 res.cookie('LoginToken', LoginToken , { httpOnly: true , path: '/'});
 

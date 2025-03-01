@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body , html {
+    height: 100vh;
+    margin: 0;
+    background: #18181B;
+}
+
+.custom-scroll {
+    overflow-y: scroll;
+  }
+
+  /* Hide scrollbar for Chrome, Safari, and Edge */
+  .custom-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  .custom-scroll {
+    scrollbar-width: none;
+  }
+
+  /* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+/* Handle (scrollbar itself) */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+  

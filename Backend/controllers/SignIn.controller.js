@@ -2,7 +2,6 @@ import User from '../models/User.models.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-
 const signIn = async (req, res) => {
     const { email, password } = req.body;
 
@@ -13,7 +12,7 @@ const signIn = async (req, res) => {
         if (!isMatch) return res.status(401).json({ message: 'Incorrect password' });
         const LoginToken = jwt.sign({ id: user._id , email: user.email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '1d' });
         res.cookie('LoginToken', LoginToken , { httpOnly: true , path: '/'});
-        res.json({ message: 'Logged in successfully', user: {user}});
+        res.status(201).json({ message: 'Logged in successfully', user: {user}});
         
     } catch (error) {
         console.error(error.message);

@@ -1,1 +1,10 @@
 first make a models and and authentication 
+complated auth backens 
+move fronetnd today make youtube frontend 
+make api fro conect backend 
+
+-> we use reduxtoolkit for state management 
+
+
+url for get id by serach of video : https://www.googleapis.com/youtube/v3/search?part=snippet&q=javascript&type=video&maxResults=10&key=YOUR_API_KEY
+and get vies subscriber and many others :https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=VIDEO_ID_1,VIDEO_ID_2,VIDEO_ID_3&key=YOUR_API_KEY
