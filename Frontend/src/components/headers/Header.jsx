@@ -5,6 +5,7 @@ import UploadVideoBtn from './UploadVideoBtn'
 import SpeechIcons from '../icons/SpeechIcons'
 import BellIcons from '../icons/BellIcons'
 import ProfileIcon from '../icons/ProfileIcon'
+import UploadVideo from '../components/UploadVideo'
 
 const Header = () => {
   return (
@@ -30,15 +31,18 @@ const Header = () => {
 
         </div>
         <div className='flex gap-4'>
-          <div>
+          <div className='cursor-pointer'>
             <UploadVideoBtn />
           </div>
-          <div>
+          <div className='cursor-pointer'>
             <BellIcons/>
           </div>
-          <div className='mr-[31px]'>
+          <div className='mr-[31px] cursor-pointer'>
             <ProfileIcon/>
           </div>
+        </div>
+        <div className='absolute right-44 top-14 z-50'>
+          <UploadVideo/>
         </div>
       </div>
     </div>

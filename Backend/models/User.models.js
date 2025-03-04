@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     default: "free" 
   }, 
   subscriptionExpiry: { type: Date, default: null },
+  channel: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Channel"
+    }
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);

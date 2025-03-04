@@ -5,19 +5,24 @@ import axios from 'axios'
 
 const CreateChannel = () => {
 
+    const {userDetail} = useAppContext();
+    console.log(userDetail.data.user.user.email);
+
     const sendChannelData = async ()=>{
-        try { 
+        try {             
         const responceData = await axios.post('http://localhost:3000/channel/create',{
             channelName: ChannelName,
-            channelHandle: ChannelHandle
-        },
-        {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true
+            channelHandle: ChannelHandle,
+            userId : userDetail.data.user.user._id,
+            userEmail : userDetail.data.user.user.email
+            },
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
         })
         if(responceData.status === 201){
+            console.log(responceData)
             setShowCreateChannel(false)
-            navigate('/channel/' + responceData._id)
         }
         } catch (error) {
             console.error(error.message);
@@ -32,8 +37,8 @@ const CreateChannel = () => {
         <div>
             <div >
                 <div className='w-[738px] h-[605px] bg-[#212121] rounded-lg'>
-                    <div>
-                        <h1>How you'll appear</h1>
+                    <div className='text-white'>
+                        <h1 className='text-3xl absolute pl-4 mt-4 font-sans font-semibold'>How you'll appear</h1>
                     </div>
                     <div className='flex justify-center items-center h-full'>
                         <div className='flex justify-center items-center flex-col gap-12'>
@@ -45,7 +50,7 @@ const CreateChannel = () => {
                                 <input type="text" id='name' className='w-[456px] h-[54px] text-lg text-white bg-transparent font-sans font-semibold pt-4 pl-3 border border-1 border-white border-opacity-25 rounded-md' value={ChannelName} onChange={(e) => {
                                     setChannelName(e.target.value)
                                 }} />
-                                <label htmlFor="handle" className='text-sm absolute bottom-[405px] ml-2  text-white opacity-25'>Handle</label>
+                                <label htmlFor="handle" className='text-sm absolute bottom-[428px] ml-2  text-white opacity-25'>Handle</label>
                                 <input type="text" id='handle' className='w-[456px] h-[54px] bg-transparent text-lg text-white font-sans  pt-4 pl-3 font-semibold border border-1 border-white border-opacity-25 rounded-md' value={ChannelHandle} onChange={(e) => {
                                     setChannelHandle(e.target.value)
                                 }} />
@@ -62,6 +67,9 @@ const CreateChannel = () => {
                             <h1 className='text-blue-600 cursor-pointer' onClick={()=>{
                                 console.log("Channel Name: ", ChannelName)
                                 console.log("Channel Handle: ", ChannelHandle)
+                                setShowCreateChannel(false);
+                                sendChannelData();
+                                 navigate(`/channel/${userDetail.data.user.user._id}`)
                             }}>Create Channel</h1>
                         </div>
                     </div>

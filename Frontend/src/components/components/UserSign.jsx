@@ -5,7 +5,7 @@ import { useAppContext } from "../../Hooks/AppContext";
 import { useNavigate } from "react-router-dom";
 const UserSign = () => {
 
-  const {auth  , setAuth} = useAppContext();
+  const {auth  , setAuth , setUserDetail , userDetail} = useAppContext();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -19,6 +19,7 @@ const UserSign = () => {
       )
       if (responce.status === 201) {
         console.log('User created successfully');
+        setUserDetail(responce)
         setAuth(true);
         setTimeout(() => {
           navigate('/');
@@ -36,6 +37,8 @@ const UserSign = () => {
       )
       if (responce.status === 201) {
         console.log('User login successfully');
+        setUserDetail(responce)
+        console.log(responce)
         setAuth(true);
         setTimeout(() => {
           navigate('/');
@@ -52,7 +55,7 @@ const UserSign = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
+    <div className="flex items-center justify-center w-[1610px] rounded-xl min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
       <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
         <h2 className="text-3xl font-semibold text-white text-center">
           {isSignUp ? "Create an Account" : "Welcome Back"}

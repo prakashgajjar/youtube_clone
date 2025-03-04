@@ -6,6 +6,8 @@ import mongooseConnection from './configs/connectDB.js';
 import SignUpRoutes from './routes/SignUp.routes.js';
 import CloudinaryRoutes from './routes/Cloudinary.routes.js';
 import MulterFile from './routes/Multer.routes.js';
+import ChannelRoutes from './routes/Channel.routes.js'
+import VideoRouter from './routes/VideoUpload.routes.js'
 import fileUpload from 'express-fileupload';
 import upload from './middlewares/Upload.middleware.js';
 import cors from 'cors';
@@ -22,7 +24,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5174'],
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
     credentials: true,
 }));
 // app.use(fileUpload({
@@ -30,9 +32,11 @@ app.use(cors({
 // })); 
 app.use(express.static('public'));
 
-app.use('/api',SignUpRoutes);
 // app.use('/cloud' ,CloudinaryRoutes );
+app.use('/api',SignUpRoutes);
 app.use('/file' , upload.single('profilePic'),MulterFile);
+app.use('/channel',ChannelRoutes);
+app.use('/upload', upload.single('video'), VideoRouter);
 
 
 const uploadDir = 'public/images';

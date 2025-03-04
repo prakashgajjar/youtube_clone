@@ -33,7 +33,7 @@ const SignUp = async (req, res) => {
                 res.cookie('LoginToken', LoginToken , { httpOnly: true , path: '/'});
 
                 const AccessToken = jwt.sign({ id: user._id , email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-                res.status(201).json({ AccessToken: AccessToken });
+                res.status(201).json({ AccessToken: AccessToken  , user});
             });
         });
 
