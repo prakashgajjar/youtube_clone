@@ -15,6 +15,7 @@ const ChannelChema = mongoose.Schema({
     },
     banner : { type: String},
     profilePicture : { type: String},
+    videos : [{type : mongoose.Schema.Types.ObjectId  , ref: "Video" }],
     createdAt: { type: Date, default: Date.now }
 })
 

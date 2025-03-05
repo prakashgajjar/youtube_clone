@@ -12,7 +12,7 @@ const ChannelPage = () => {
             </div>
             <div className='flex gap-4 mt-10 items-center'>
                 <div>
-                    <img src="" alt="" className='bg-blue-500 w-[160px] h-[160px] rounded-full' />
+                    <img src="/images/bg06.jpg" alt="" className='bg-blue-500 w-[160px] h-[160px] rounded-full' />
                 </div>
                <div className='flex flex-col'>
                <div className='flex flex-col gap-1'>

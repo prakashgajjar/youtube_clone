@@ -8,7 +8,7 @@ export const AppProvider = ({ children }) => {
     const [showCreateChannel , setShowCreateChannel] = useState(false);
     const [userDetail , setUserDetail] = useState(null);
     const [channelExits , setChannelExits] = useState(false);
-    const [channelDetail , setChannelDetail ] = useState();
+    const [channelDetail , setChannelDetail ] = useState(null);
     const [showUploadVideo , setShowUploadVideo] = useState(false);
     return (
         <AppContext.Provider value={{auth,setAuth , showUploadVideo , setShowUploadVideo,channelDetail,setChannelDetail , setChannelExits ,channelExits ,setShowChannel,showChannel ,showCreateChannel,setShowCreateChannel , userDetail , setUserDetail}}>

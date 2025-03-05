@@ -15,10 +15,10 @@ const UserSchema = new mongoose.Schema({
     default: "free" 
   }, 
   subscriptionExpiry: { type: Date, default: null },
-  channel: {
+  channel: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Channel"
-    },
+    }],
     videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }]
 }, { timestamps: true });
 

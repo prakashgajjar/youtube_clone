@@ -6,7 +6,6 @@ const authUser =  async (req,res , next)=>{
         if(LoginToken){
             const verified = jwt.verify(LoginToken, process.env.JWT_REFRESH_SECRET);
             req.user = verified;
-            console.log("User authenticated");
             next();
         }
     } catch (error) {

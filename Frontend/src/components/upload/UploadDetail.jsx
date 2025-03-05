@@ -50,7 +50,9 @@ const UploadDetail = () => {
             <div className='w-[1000px] h-[880px] bg-[#282828] rounded-[30px]'>
                 <div className='h-[68px] border-white  border-b-[1px] border-opacity-20 w-full flex items-center justify-between px-7'>
                     <h1 className='text-xl font-bold'>{videoDetail ? `${videoDetail.name.split(".").slice(0, -1).join(".")}` : ""}</h1>
-                    <div>
+                    <div className=' cursor-pointer' onClick={()=>{
+                        navigate('/');
+                    }}>
                         <img src="/logos/cross.png" className='' alt="" srcset="" />
                     </div>
                 </div>

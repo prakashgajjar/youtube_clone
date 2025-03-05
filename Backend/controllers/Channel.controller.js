@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Channel from '../models/Channel.models.js';
+import User from '../models/User.models.js';
 const channelData = async (req,res)=>{
  const {channelName  , channelHandle } = req.body;
  console.log(req.body);
@@ -11,8 +12,8 @@ const channelData = async (req,res)=>{
         if(checkuser){
             return res.status(401).json({message : "You already have a channel"})
         }
-        const user = await Channel.findOne({channelName: channelName})
-        if(user){
+        const channel = await Channel.findOne({channelName: channelName})
+        if(channel){
             return res.status(401).json({message : "Channel name already exists"})
         }
         const channelData = await Channel.create({
@@ -23,6 +24,11 @@ const channelData = async (req,res)=>{
             createdAt: new Date()
         })
         console.log(channelData);
+
+        const user = await User.findOne({_id : req.user.id})
+        user.channel.push(channelData._id);
+        await user.save();
+        
         if(channelData){
             res.status(201).json({ message : "channel created successfully" , id: channelData._id})
         }
