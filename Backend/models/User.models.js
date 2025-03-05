@@ -18,7 +18,8 @@ const UserSchema = new mongoose.Schema({
   channel: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Channel"
-    }
+    },
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }]
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);

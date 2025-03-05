@@ -1,19 +1,22 @@
 import express from 'express';
 import fs from 'fs';
-import { v2 as cloudinary } from 'cloudinary';
+import cors from 'cors';
 import { configDotenv } from 'dotenv';
+import cookieParser from 'cookie-parser';
+// import EventEmitter from "events";
+import fileUpload from 'express-fileupload';
+import { v2 as cloudinary } from 'cloudinary';
 import mongooseConnection from './configs/connectDB.js';
 import SignUpRoutes from './routes/SignUp.routes.js';
 import CloudinaryRoutes from './routes/Cloudinary.routes.js';
 import MulterFile from './routes/Multer.routes.js';
 import ChannelRoutes from './routes/Channel.routes.js'
 import VideoRouter from './routes/VideoUpload.routes.js'
-import fileUpload from 'express-fileupload';
 import upload from './middlewares/Upload.middleware.js';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import EventEmitter from "events";
-EventEmitter.defaultMaxListeners = 20;
+import AuthUser from './middlewares/Auth.middleware.js';
+import authUser from './middlewares/Auth.middleware.js';
+import GetAuthUser from './controllers/GetAuthUser.controller.js';
+// EventEmitter.defaultMaxListeners = 20;
 
 const app = express();
 configDotenv();
@@ -34,9 +37,13 @@ app.use(express.static('public'));
 
 // app.use('/cloud' ,CloudinaryRoutes );
 app.use('/api',SignUpRoutes);
-app.use('/file' , upload.single('profilePic'),MulterFile);
-app.use('/channel',ChannelRoutes);
-app.use('/upload', upload.single('video'), VideoRouter);
+app.use('/auth' ,AuthUser , GetAuthUser);
+app.use('/file' , AuthUser , upload.array('profilePic' ,2),MulterFile);
+app.use('/channel',AuthUser,ChannelRoutes);
+app.use('/upload',AuthUser , upload.fields([
+    {name : 'video', maxCount :1},
+    {name : "thumbnail" , maxCount :1}
+]), VideoRouter);
 
 
 const uploadDir = 'public/images';

@@ -10,8 +10,8 @@ const Chennal = () => {
             // console.log(userDetail.data.user.user._id)
             const responce = await axios.post('http://localhost:3000/channel/detail',
                 {
-                    userId : userDetail.data.user.user._id,
-                    userEmail : userDetail.data.user.user.email
+                    userId : userDetail._id,
+                    userEmail : userDetail.email
                 },
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -44,8 +44,8 @@ const Chennal = () => {
                 </div>
                 <div className='flex flex-col'>
                     <div className='flex flex-col '>
-                        <h1 className='text-lg font-semibold'>{userDetail.data.user.user.username}</h1>
-                        <h1 className='text-sm'>{userDetail.data.user.user.email}</h1>
+                        <h1 className='text-lg font-semibold'>{userDetail.username}</h1>
+                        <h1 className='text-sm'>{userDetail.email}</h1>
                     </div>
                     {
                         channelExits ? (

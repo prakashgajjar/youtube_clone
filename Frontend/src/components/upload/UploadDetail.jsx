@@ -1,12 +1,16 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef , useEffect } from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 const UploadDetail = () => {
 
     const sendVideAndThumbnail = async () => {
         const formData = new FormData();
         formData.append("video", videoDetail);
-        // formData.append("title" , videoDetail.title);
+        formData.append("thumbnail" , thumbnailDetail);
+        formData.append("tital" , tital);
+        formData.append("description" , description);
+        console.log(thumbnailDetail  , videoDetail);
         try {
             const responce = await axios.post('http://localhost:3000/upload/video',formData,
                {
@@ -14,9 +18,10 @@ const UploadDetail = () => {
                    withCredentials: true
                }
            )
-
-           if (responce.status === 201) {
+           if (responce.status === 200) {
                console.log('Video uploaded successfully', responce.data);
+               navigate('/');
+               
            }else{
             console.error('Error uploading video', error.message);
            }
@@ -24,13 +29,22 @@ const UploadDetail = () => {
             console.error({error : error.messgae , where : "videoAndThumbnail"})
         }
     }
-
     const [borderActive, setBorderActive] = useState(false)
     const [borderActive1, setBorderActive1] = useState(false)
     const [videoUrl, setVideoUrl] = useState(null);
     const [videoDetail, setVideoDetail] = useState(null);
+    const [thumbnailDetail, setThumbnailDetail] = useState(null);
+    const [tital , setTital] = useState(null);
+    const [description , setDescription] = useState(null);
     const diveRef1 = useRef(null);
     const diveRef2 = useRef(null);
+    const navigate  = useNavigate(null);
+
+    useEffect(() => {
+        console.log("Thumbnail Updated:", thumbnailDetail);
+        console.log("Video Updated:", videoDetail);
+    }, [thumbnailDetail , videoDetail]);
+    
     return (
         <div className='flex justify-center items-center h-screen w-screen bg-zinc-950 text-white'>
             <div className='w-[1000px] h-[880px] bg-[#282828] rounded-[30px]'>
@@ -47,11 +61,13 @@ const UploadDetail = () => {
                                 <h1 className='font-bold text-2xl mt-3'>Details</h1>
                             </div>
                             <div onClick={() => {
-                                setBorderActive(true);
+                                setBorderActive(true)
                                 setBorderActive1(false);
                             }} ref={diveRef1} className={`w-[536px] h-[80px] border border-white hover:border-white   ${borderActive ? "" : "border-opacity-15"}  rounded-lg flex justify-center items-center mt-4`}>
                                 <h1 className='absolute top-40 left-[515px] text-sm font-sans opacity-80 mt-7'>Tital(required)</h1>
-                                <input type="text" name="tital" id="tital" className='w-full h-8 bg-transparent outline-none mx-4' />
+                                <input type="text" name="tital" id="tital" className='w-full h-8 bg-transparent outline-none mx-4' value={tital} onChange={(e)=>{
+                                    setTital(e.target.value);
+                                }} />
                             </div>
 
                             <div onClick={() => {
@@ -59,7 +75,9 @@ const UploadDetail = () => {
                                 setBorderActive1(true);
                             }} ref={diveRef2} className={`w-[536px] h-[200px] border rounded-lg flex hover:border-white  border-white ${borderActive1 ? "" : "border-opacity-15"} justify-center items-center mt-4`}>
                                 <h1 className='absolute top-[260px] left-[515px] text-sm font-sans opacity-80 mt-7'>Description</h1>
-                                <textarea type="text" name="tital" id="tital" className='bg-transparent resize-none w-[536px]  h-[170px] mt-4 outline-none mx-4' />
+                                <textarea type="text" name="tital" id="tital" className='bg-transparent resize-none w-[536px]  h-[170px] mt-4 outline-none mx-4' value={description} onChange={(e)=>{
+                                    setDescription(e.target.value);
+                                }}/>
                             </div>
                         </div>
                         <div className='flex gap-8'>
@@ -101,7 +119,16 @@ const UploadDetail = () => {
                                     <h1 className='mt-4 text-lg font-bold'>Thumbnail</h1>
                                 </div>
                                 <div className="border border-dashed border-white border-opacity-35 rounded-md w-44 h-24 mt-2 flex items-center justify-center cursor-pointer relative">
-                                    <input type="file" id="thumbnailUpload" className="hidden" />
+                                    <input type="file" id="thumbnailUpload" className="hidden" onChange={(e)=>{
+                                        const file1 = e.target.files[0];
+                                        if(!file1){
+                                             console.error('No file selected');
+                                             return;
+                                        }
+                                        setThumbnailDetail(file1);
+                                        const reader = new FileReader();
+                                        reader.readAsDataURL(file1);
+                                    }} />
                                     <label
                                         htmlFor="thumbnailUpload"
                                         className="text-white text-sm font-medium cursor-pointer flex flex-col items-center gap-1"
@@ -162,8 +189,13 @@ const UploadDetail = () => {
                     </div>
 
                 </div>
-                <div className='w-full h-[60px] border-t-[1px] border-opacity-25 border-white mt-2 flex justify-end items-center'>
-                    <div className='w-[70px] h-9 bg-white rounded-full hover:bg-gray-300 active:scale-105 mr-8 mb-1 text-black flex justify-center items-center'>
+                <div className='w-full h-[60px] border-t-[1px] border-opacity-25 border-white mt-2 flex justify-between items-center px-6'>
+                    <div className='w-[70px] h-9 bg-white rounded-full hover:bg-gray-300 active:scale-105  mb-1 text-black flex justify-center items-center'>
+                        <h1 className='font-sans text-md font-semibold cursor-pointer ' onClick={() => {
+                            navigate('/')
+                        }}>Prev</h1>
+                    </div>
+                    <div className='w-[70px] h-9 bg-white rounded-full hover:bg-gray-300 active:scale-105  mb-1 text-black flex justify-center items-center'>
                         <h1 className='font-sans text-md font-semibold cursor-pointer ' onClick={() => {
                             sendVideAndThumbnail();
                         }}>Next</h1>

@@ -19,8 +19,6 @@ const UserSign = () => {
       )
       if (responce.status === 201) {
         console.log('User created successfully');
-        setUserDetail(responce)
-        setAuth(true);
         setTimeout(() => {
           navigate('/');
         }, 400);
@@ -37,9 +35,7 @@ const UserSign = () => {
       )
       if (responce.status === 201) {
         console.log('User login successfully');
-        setUserDetail(responce)
         console.log(responce)
-        setAuth(true);
         setTimeout(() => {
           navigate('/');
         }, 200);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import HomePage from './components/Pages/HomePage'
 import UserSign from './components/components/UserSign'
@@ -9,13 +9,20 @@ import LeftSide from './components/Main/LeftSide'
 import Header from './components/headers/Header'
 import NotFound404 from './components/components/NotFound404'
 import VideoUploadPage from './components/Pages/VideoUploadPage'
+import AuthUser from './components/components/AuthUser'
 
 const App = () => {
+  useEffect(()=>{
+
+  },[])
   const location = useLocation();
   const isNotFound = location.pathname !== '/' && location.pathname !== '/auth' && !location.pathname.startsWith('/channel');
   return (
     <AppProvider>
       <div className='w-screen h-screen overflow-hidden'>
+        <div>
+          <AuthUser/>
+        </div>
         <div>
           {!isNotFound && <Header />}
         </div>
