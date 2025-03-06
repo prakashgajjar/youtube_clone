@@ -37,8 +37,8 @@ const Chennal = () => {
         },[showChannel , setShowCreateChannel])
     
     return (
-        <div className='text-white h-56 w-[300px] bg-[#282828] rounded-xl'>
-            <div className='flex gap-5 pt-3' >
+        <div className='text-white h-56 w-[300px] bg-[#282828] rounded-xl z-[50]'>
+            <div className='flex gap-5 pt-3 ' >
                 <div className='ml-3 '>
                     <img src="images/bg06.jpg" className='w-10 h-10 mt-2 rounded-full' alt="" />
                 </div>

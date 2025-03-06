@@ -6,7 +6,6 @@ const channelDetail = async (req,res)=>{
 const {userId  , userEmail} = req.body;
     try {
         const getChanneDetail = await Channel.findOne({userId : req.user.id})
-        console.log(getChanneDetail);
         if(getChanneDetail){
             res.status(201).json({getChanneDetail})
         }else{

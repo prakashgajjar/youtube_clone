@@ -28,12 +28,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5174'],
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
     credentials: true,
 }));
 // app.use(fileUpload({
 //     useTempFiles: true,
-// })); 
+// }));
+
 app.use(express.static('public'));
 
 // app.use('/cloud' ,CloudinaryRoutes );
@@ -46,7 +47,6 @@ app.use('/upload',AuthUser , upload.fields([
     {name : 'video', maxCount :1},
     {name : "thumbnail" , maxCount :1}
 ]), VideoRouter);
-
 
 const uploadDir = 'public/images';
 if (!fs.existsSync(uploadDir)) {

@@ -51,7 +51,7 @@ const UserSign = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="flex items-center justify-center w-[1610px] rounded-xl min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
+    <div className="flex items-center justify-center w-[1610px]  rounded-xl min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
       <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
         <h2 className="text-3xl font-semibold text-white text-center">
           {isSignUp ? "Create an Account" : "Welcome Back"}

@@ -12,7 +12,6 @@ const AuthUser = () => {
             if(responce.status === 200) {
                 setAuth(true);
                 setUserDetail(responce.data.user);
-                console.log(responce.data.user)
             }else{
                 console.error('Error fetching user', responce.message)
             }

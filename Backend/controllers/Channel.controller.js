@@ -23,7 +23,6 @@ const channelData = async (req,res)=>{
             userId : req.user.id,
             createdAt: new Date()
         })
-        console.log(channelData);
 
         const user = await User.findOne({_id : req.user.id})
         user.channel.push(channelData._id);

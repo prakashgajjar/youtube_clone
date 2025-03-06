@@ -8,3 +8,12 @@ make api fro conect backend
 
 url for get id by serach of video : https://www.googleapis.com/youtube/v3/search?part=snippet&q=javascript&type=video&maxResults=10&key=YOUR_API_KEY
 and get vies subscriber and many others :https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=VIDEO_ID_1,VIDEO_ID_2,VIDEO_ID_3&key=YOUR_API_KEY
+
+
+upadate till : 6-3-24 ;
+
+hey subscribe and unsubcribe true false thing is not done yet 
+video haqndling not done yet 
+comment not done yet 
+short not done yet 
+subscriptions not done yet 

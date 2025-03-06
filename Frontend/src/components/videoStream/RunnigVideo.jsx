@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const RunnigVideo = () => {
+
   return (
-    <div>
-        <div className='w-[1280px] h-[720px] bg-red-400 rounded-2xl'>
-            
-        </div>
+    <div className="z-50">
+    <div className="w-[1280px] h-[720px] bg-red-400 rounded-2xl">
+      <video controls className="w-full h-full rounded-2xl">
+        <source src="./video-1741175723721-402653096.mp4" />
+      </video>
     </div>
+  </div>
   )
 }
 

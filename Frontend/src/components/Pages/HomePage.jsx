@@ -8,7 +8,7 @@ import { useAppContext } from '../../Hooks/AppContext'
 import CreateChannel from '../Features/CreateChannel'
 
 const HomePage = () => {
-  const { showChannel,showCreateChannel } = useAppContext();
+  const { showChannel, showCreateChannel } = useAppContext();
   return (
     <div className='h-screen w-screen  overflow-hidden '>
       <div className='mt-1 flex'>
@@ -23,15 +23,17 @@ const HomePage = () => {
           </div>
         </div>
         {
-          showChannel && <div className='absolute right-10'>
-            <Chennal />
+          showChannel && <div className='absolute right-10 z-[100]'>
+            <div className='relative z-[100]'>
+              <Chennal />
+            </div>
           </div>
         }
       </div>
       {
         showCreateChannel && <div className="z-50 absolute inset-0 flex items-center justify-center">
-        <CreateChannel />
-      </div>
+          <CreateChannel />
+        </div>
       }
 
     </div>

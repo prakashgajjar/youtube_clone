@@ -3,7 +3,6 @@ const getVideos = async (req,res)=>{
     
     try {
         const videos = await Video.find({}).populate('channel')
-        console.log(videos)
         if (!videos.length) {
             return res.status(404).json({ message: "No videos found." });
         }
