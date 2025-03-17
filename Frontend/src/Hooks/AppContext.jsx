@@ -11,13 +11,15 @@ const AppProvider = ({ children }) => {
     const [channelDetail, setChannelDetail] = useState(null);
     const [showUploadVideo, setShowUploadVideo] = useState(false);
     const [FunctionCallVideo, setFunctionCallVideo] = useState(false);
+    const [videoData, setVideoData] = useState(null);
 
     return (
         <AppContext.Provider value={{
             auth, setAuth, FunctionCallVideo, setFunctionCallVideo, 
             showUploadVideo, setShowUploadVideo, channelDetail, setChannelDetail, 
             setChannelExits, channelExits, setShowChannel, showChannel, 
-            showCreateChannel, setShowCreateChannel, userDetail, setUserDetail
+            showCreateChannel, setShowCreateChannel, userDetail, setUserDetail , setVideoData,
+            videoData
         }}>
             {children}
         </AppContext.Provider>

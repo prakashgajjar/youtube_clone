@@ -35,7 +35,7 @@ const App = () => {
 
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/:id' element={<SteamVideoPage/>} />
+            <Route exact path='/:id' element={<SteamVideoPage/>} />
             <Route path='/auth' element={<UserSign />} />
             <Route path='/channel/:id' element={<ChannelPage />} />
             <Route path='/upload/video' element={<VideoUploadPage/>} />

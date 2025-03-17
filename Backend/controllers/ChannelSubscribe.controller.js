@@ -2,22 +2,26 @@ import Channel from "../models/Channel.models.js";
 
 const ChannelSubscribe = async (req,res) =>{
     const {channelId} = req.body;
-    console.log(req.user.id)
-    console.log(channelId);
     try {
         const channelData = await Channel.findOne({_id : channelId })
-        
-        console.log(channelData)
         if(!channelData){
             return res.status(404).json({message : "Channel not found"})
         }
         if(channelData.subscribersDetail.includes(req.user.id)){
-            return res.status(400).json({message : "You have already subscribed to this channel"})
+          const channelData1 = await Channel.findByIdAndUpdate(
+                channelId,
+                {
+                  $pull: { subscribersDetail: req.user.id },
+                  $inc: { subscribers: -1 }
+                },
+                { new: true }
+              );
+            await channelData1.save();
+            return res.status(200).json({message : "user unsubcribed this channel"});
         }
         channelData.subscribersDetail.push(req.user.id);
         channelData.subscribers++;
         await channelData.save();
-
         res.status(200).json({message : "Subscribe successful"})
 
     } catch (error) {

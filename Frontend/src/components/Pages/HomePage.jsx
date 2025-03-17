@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../headers/Header'
 import LeftSide from '../Main/LeftSide'
 import RightSide from '../Main/RightSide'
@@ -8,9 +8,11 @@ import { useAppContext } from '../../Hooks/AppContext'
 import CreateChannel from '../Features/CreateChannel'
 
 const HomePage = () => {
-  const { showChannel, showCreateChannel } = useAppContext();
+
+  const { showChannel, showCreateChannel} = useAppContext();
+
   return (
-    <div className='h-screen w-screen  overflow-hidden '>
+    <div className='h-full w-screen  overflow-hidden '>
       <div className='mt-1 flex'>
         <div className='h-full w-full  mt-2 overflow-hidden'>
           <div>

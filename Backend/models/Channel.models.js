@@ -13,7 +13,7 @@ const ChannelChema = mongoose.Schema({
         required: true,
         unique: true
     },
-    subscribers: {type: Number , default: 0},
+    subscribers: {type: Number , default: 0 , min:0},
     subscribersDetail: [{type : mongoose.Schema.Types.ObjectId , ref : 'User'}], 
     banner : { type: String},
     profilePicture : { type: String},

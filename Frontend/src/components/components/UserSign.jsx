@@ -21,7 +21,10 @@ const UserSign = () => {
         console.log('User created successfully');
         setTimeout(() => {
           navigate('/');
-        }, 400);
+        }, 200);
+        setTimeout(()=>{
+          window.location.reload();
+        },[201])
       }else{
         console.error('Error', responce.message);
       }
@@ -39,6 +42,9 @@ const UserSign = () => {
         setTimeout(() => {
           navigate('/');
         }, 200);
+        setTimeout(()=>{
+          window.location.reload();
+        },[201])
       }else{
         console.error('Error', responce.message);
       }

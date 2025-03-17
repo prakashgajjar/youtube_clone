@@ -11,6 +11,8 @@ const VideoSchema = new mongoose.Schema({
   views: { type: Number, default: 0 },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], 
   dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], 
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  reports : [{type: mongoose.Schema.Types.ObjectId, ref:'User'}] ,
   user: [{type : mongoose.Schema.Types.ObjectId , ref: "User" }],
   createdAt: { type: Date, default: Date.now },
 }, { timestamps: true });

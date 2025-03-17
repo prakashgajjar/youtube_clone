@@ -13,6 +13,7 @@ import MulterFile from './routes/Multer.routes.js';
 import ChannelRoutes from './routes/Channel.routes.js';
 import VideoRouter from './routes/VideoUpload.routes.js';
 import GetVideos from './routes/VideosGet.routes.js';
+import VideoLikeDislikeRoutes from './routes/VideoLikeDislike.routes.js'
 import upload from './middlewares/Upload.middleware.js';
 import AuthUser from './middlewares/Auth.middleware.js';
 import GetAuthUser from './controllers/GetAuthUser.controller.js';
@@ -43,6 +44,7 @@ app.use('/auth' ,AuthUser , GetAuthUser);
 app.use('/file' , AuthUser , upload.array('profilePic' ,2),MulterFile);
 app.use('/channel',AuthUser,ChannelRoutes);
 app.use('/videos' , GetVideos);
+app.use('/video',AuthUser,VideoLikeDislikeRoutes);
 app.use('/upload',AuthUser , upload.fields([
     {name : 'video', maxCount :1},
     {name : "thumbnail" , maxCount :1}
