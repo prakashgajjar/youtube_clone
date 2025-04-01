@@ -1,6 +1,4 @@
-import React from 'react'
 import VideoGroup from './VideoGroup'
-import Chennal from '../Features/Chennal'
 
 const RightSide = () => {
   return (

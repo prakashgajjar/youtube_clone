@@ -1,6 +1,3 @@
-import React, { useEffect } from 'react'
-import Header from '../headers/Header'
-import LeftSide from '../Main/LeftSide'
 import RightSide from '../Main/RightSide'
 import TagLine from '../Main/TagLine'
 import Chennal from '../Features/Chennal'

@@ -5,10 +5,6 @@ import moment from 'moment'
 
 const VideoAi = ({video}) => {
 
-    useEffect(()=>{
-        console.log(video)
-    },[video])
-
   return (
     <div>
         <div className='flex  justify-start items-center'>

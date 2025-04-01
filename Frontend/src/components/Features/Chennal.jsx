@@ -35,6 +35,10 @@ const Chennal = () => {
         useEffect(()=>{
             getChanelDetail();
         },[showChannel , setShowCreateChannel])
+
+        useEffect(()=>{
+            getChanelDetail();
+        },[])
     
     return (
         <div className='text-white h-56 w-[300px] bg-[#282828] rounded-xl z-[50]'>

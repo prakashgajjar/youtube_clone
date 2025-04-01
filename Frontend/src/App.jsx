@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import './index.css'
 import './App.css'
 import HomePage from './components/Pages/HomePage'
 import UserSign from './components/components/UserSign'
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <AppProvider>
-      <div className='w-screen h-screen overflow-hidden'>
+      <div className='w-screen h-screen overflow-hidden '>
         <div>
           <AuthUser/>
         </div>
@@ -35,7 +35,7 @@ const App = () => {
 
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route exact path='/:id' element={<SteamVideoPage/>} />
+            <Route path='/:id' element={<SteamVideoPage/>} />
             <Route path='/auth' element={<UserSign />} />
             <Route path='/channel/:id' element={<ChannelPage />} />
             <Route path='/upload/video' element={<VideoUploadPage/>} />

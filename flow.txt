@@ -17,3 +17,9 @@ video haqndling not done yet
 comment not done yet 
 short not done yet 
 subscriptions not done yet 
+
+the comment flow for backend now i thinking that
+- first create the comment send store in bakend 
+then display all comments 
+
+now move to frontend and make a comments display components 

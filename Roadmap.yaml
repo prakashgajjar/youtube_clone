@@ -45,3 +45,32 @@
 🔹 Host Backend on Render/DigitalOcean
 🔹 Optimize Video Streaming for Fast Loading
 
+status standerd for my project : 
+
+200 OK – Request succeeded, video loaded successfully.
+
+201 Created – Video uploaded successfully.
+
+204 No Content – Video deleted successfully, no content to return.
+
+301 Moved Permanently – Redirecting to a new video URL.
+
+304 Not Modified – Video not modified, cached version is displayed.
+
+400 Bad Request – Invalid video request format.
+
+401 Unauthorized – User not authenticated, login required.
+
+403 Forbidden – User doesn’t have permission to access the video.
+
+404 Not Found – Video not found or removed.
+
+405 Method Not Allowed – Invalid request method (e.g., using GET instead of POST).
+
+408 Request Timeout – Server timed out waiting for the request.
+
+409 Conflict – Conflict in video upload (e.g., duplicate video).
+
+500 Internal Server Error – Server failed to load the video.
+
+503 Service Unavailable – Server temporarily unavailable (e.g., during maintenance).

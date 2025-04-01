@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 import Video from '../components/Video'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -22,7 +22,7 @@ const VideoGroup = () => {
         }
     }
     const [videosData, setVideosData] = useState(null);
-    const {setShowCreateChannel , showCreateChannel} = useAppContext();
+    const {setShowCreateChannel} = useAppContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,12 +34,12 @@ const VideoGroup = () => {
             {
                 videosData && videosData.map((data, index) => {
                     return (
-                        <div className='cursor-pointer' onClick={()=>{
+                        <div className='cursor-pointer' key={data._id || index} onClick={()=>{
                             console.log('Page is open');
                             setShowCreateChannel(true);
                             navigate(`/${videosData[index]._id}`);
                         }}>
-                            <Video key={index} video={data} />
+                            <Video video={data} />
                         </div>
                     )
                 })

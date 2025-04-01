@@ -1,4 +1,4 @@
-import React from 'react'
+
 import RunnigVideo from '../videoStream/RunnigVideo'
 import { useAppContext } from '../../Hooks/AppContext'
 import Chennal from '../Features/Chennal'
@@ -26,15 +26,11 @@ const SteamVideoPage = () => {
             <div>
               <RunnigVideo />
             </div>
-            <div>
-              <h1 className='font-bold text-xl font-sans mt-2'>love - Mashup slowed and reverb song || mind relax lofi song|</h1>
-            </div>
+
             <div id='channelName'>
               <VideoBar />
             </div>
-            <div className='bg-[#303030] rounded-xl h-28 w-full'>
-            
-            </div>
+
           </div>
           <div className=' w-[30%] ml-4 mt-5'>
             <GroupVideoAi />

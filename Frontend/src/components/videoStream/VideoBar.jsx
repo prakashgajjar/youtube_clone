@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppContext } from '../../Hooks/AppContext';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
 import ReportAlert from '../components/ReportAlert';
+import moment from "moment";
+import GroupComment from '../Features/GroupComment';
+import InputComment from '../Features/InputComment';
 
 
 const VideoBar = () => {
@@ -157,6 +160,9 @@ const VideoBar = () => {
     }, [videoData])
     return (
         <div>
+            <div>
+                <h1 className='font-bold text-xl font-sans mt-2'>{videoData && videoData.tital}</h1>
+            </div>
             <div className='w-[1280px] h-[55px] mt-2'>
                 <div className='flex items-center  justify-between'>
                     <div className='flex gap-3'>
@@ -183,12 +189,12 @@ const VideoBar = () => {
 
                         <div className='h-10 w-36 bg-[#2b2b2b] text-white rounded-full flex   '>
                             <div className='w-[60%]  h-full rounded-l-full flex items-center justify-center gap-3 cursor-pointer'>
-                                <img src={`logos/${isLike ? "likeClick.png" : "likeV.png"}`} alt="like" className='flex w-6' onClick={() => {
+                                <img src={`logos/${isLike ? "like.png" : "likeV.png"}`} alt="like" className='flex w-6' onClick={() => {
                                     LikeVideo();
                                 }} />
                                 <h1>{videoData ? videoData.likes.length : ""} </h1>
                             </div>
-                            <div class="relative flex justify-center items-center ">
+                            <div className="relative flex justify-center items-center ">
                                 <svg className="w-1 h-7 text-gray-500" xmlns="http://www.w3.org/2000/svg">
                                     <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="2" />
                                 </svg>
@@ -228,7 +234,6 @@ const VideoBar = () => {
                                         <h1 className='text-xl'>Report</h1>
                                     </div>
                                 </div>
-
                             }
                         </div>
 
@@ -238,6 +243,31 @@ const VideoBar = () => {
                             }
                         </div>
                     </div>
+                </div>
+                <div className='bg-[#303030] rounded-xl max-h-28  w-full mt-3'>
+
+                    {
+                        videoData && <div>
+                            <div className='flex gap-2 ml-4 pt-2 '>
+                                <div>
+                                    <h1 className='font-semibold'>{videoData.views} views</h1>
+                                </div>
+                                <div>
+                                    <h1 className='font-semibold'>{moment(videoData.createdAt).fromNow()}</h1>
+                                </div>
+                            </div>
+                            <div className='mt-2 ml-4 pb-2 '>
+                                <h1>{videoData.description}</h1>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div className='mt-6'> {/* comment section start here */}
+                    <InputComment />
+
+                </div>
+                <div className='mt-8 '>
+                    <GroupComment />
                 </div>
                 <div>
 

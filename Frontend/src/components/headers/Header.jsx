@@ -1,4 +1,4 @@
-import React from 'react'
+
 import HeaderIcons from '../icons/HeaderIcons'
 import SearchBar from './SearchBar'
 import UploadVideoBtn from './UploadVideoBtn'
@@ -16,7 +16,7 @@ const Header = () => {
             <HeaderIcons />
           </div>
           <div className='flex justify-center items-center -ml-2'>
-            <img src="/logos/yt.png" className=' h-[55px]' alt="youtube" srcset="" />
+            <img src="/logos/yt.png" className=' h-[55px]' alt="youtube"/>
             <h1 className='text-white -tracking-widest  font-[550]  text-[20px] -ml-2'>YouTube</h1>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import  { useRef } from 'react';
 import TagName from '../components/TagName';
 
 const TagLine = () => {
@@ -12,6 +12,7 @@ const TagLine = () => {
 
     return (
         <div className="relative w-[1630px]">
+            {/* Scrollable Tag Container */}
             <div 
                 ref={scrollRef} 
                 className="flex gap-2 overflow-x-auto custom-scroll scrollbar-hide w-full"
@@ -36,10 +37,14 @@ const TagLine = () => {
                 <TagName name="Blockchain" />
                 <TagName name="Space" />
             </div>
-            <div className="absolute top-0 right-0 h-full w-40 bg-gradient-to-l  from-zinc-900 to-transparent pointer-events-none" />
+
+            {/* Gradient Effect */}
+            <div className="absolute top-0 right-0 h-full w-40 bg-gradient-to-l from-zinc-800 to-transparent pointer-events-none" />
+
+            {/* Scroll Button */}
             <button 
                 onClick={scrollRight} 
-                className="absolute right-0 top-4 transform -translate-y-1/2 text-2xl opacity-70  text-white p-2 rounded-full shadow-md"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 text-2xl opacity-70 text-white rounded-full bg-zinc-800 hover:bg-zinc-700 transition duration-300 outline-none focus:outline-none border-none px-3 py-1"
             >
                 &gt;
             </button>
