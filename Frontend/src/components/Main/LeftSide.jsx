@@ -1,5 +1,4 @@
-import React from 'react'
-import ListComponent from '../components/ListComponent'
+
 import GroupList1 from './GroupList1'
 
 const LeftSide = () => {

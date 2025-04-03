@@ -11,11 +11,14 @@ import NotFound404 from './components/components/NotFound404'
 import VideoUploadPage from './components/Pages/VideoUploadPage'
 import AuthUser from './components/components/AuthUser'
 import SteamVideoPage from './components/Pages/SteamVideoPage'
+import GroupHistoryVideo from './components/WatchHistory/GroupHistoryVideo'
 
 const App = () => {
   const location = useLocation();
-  const watchPageFound = /^[a-zA-Z0-9]+$/.test(location.pathname.substring(1));
-  const isNotFound = location.pathname !== '/'  && location.pathname !== '/auth' && !watchPageFound && !location.pathname.startsWith('/channel');
+  // const watchPageFound = /^[a-zA-Z0-9]+$/.test(location.pathname.substring(1));
+  const watchPageFound = location.pathname !== "/history" && /^[a-zA-Z0-9]+$/.test(location.pathname.substring(1));
+
+  const isNotFound = location.pathname !== '/'  && location.pathname !== '/auth' && location.pathname !=='/history' && !watchPageFound && !location.pathname.startsWith('/channel');
 
   return (
     <AppProvider>
@@ -39,6 +42,7 @@ const App = () => {
             <Route path='/auth' element={<UserSign />} />
             <Route path='/channel/:id' element={<ChannelPage />} />
             <Route path='/upload/video' element={<VideoUploadPage/>} />
+            <Route path='/history' element={<GroupHistoryVideo/>}  />
             <Route path='*' element={<NotFound404 />} />
           </Routes>
         </div>

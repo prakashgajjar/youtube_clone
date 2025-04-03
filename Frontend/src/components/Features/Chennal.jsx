@@ -66,8 +66,8 @@ const Chennal = () => {
                             <div>
                             <h1 className='text-blue-400 cursor-pointer'
                             onClick={()=>{
-                                setShowChannel(false)
                                 setShowCreateChannel(true);
+                                setShowChannel(false);
                             }}
                             >Create your channel</h1>
                         </div>

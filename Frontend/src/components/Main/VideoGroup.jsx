@@ -2,7 +2,7 @@ import  { useState, useEffect } from 'react'
 import Video from '../components/Video'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useAppContext } from '../../Hooks/AppContext'
+
 
 const VideoGroup = () => {
     const getVideos = async () => {
@@ -21,8 +21,26 @@ const VideoGroup = () => {
             console.log(error)
         }
     }
+
+    const addVideoInUserHistory = async (id) => {
+        try {
+            const responce = await axios.post('http://localhost:3000/watch/add', 
+                {
+                    videoId: id
+                },{
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            })
+            if (responce.status === 200) {
+                console.log(responce.data)
+            } else {
+                console.error('Error fetching videos', responce.message)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const [videosData, setVideosData] = useState(null);
-    const {setShowCreateChannel} = useAppContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,8 +54,9 @@ const VideoGroup = () => {
                     return (
                         <div className='cursor-pointer' key={data._id || index} onClick={()=>{
                             console.log('Page is open');
-                            setShowCreateChannel(true);
+                            addVideoInUserHistory(data._id);
                             navigate(`/${videosData[index]._id}`);
+
                         }}>
                             <Video video={data} />
                         </div>

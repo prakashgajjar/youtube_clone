@@ -2,7 +2,7 @@ import Channel from '../models/Channel.models.js';
 import Video from '../models/Video.models.js'
 const videoData = async (req,res)=>{
     const {tital , description} = req.body;
-    const {thumbnail  , video}  = req.files
+    const {thumbnail  , video}  = req.files;
     console.log(req.files);
     try {
       if(!video){

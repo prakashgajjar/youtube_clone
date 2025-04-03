@@ -7,7 +7,7 @@ make api fro conect backend
 
 
 url for get id by serach of video : https://www.googleapis.com/youtube/v3/search?part=snippet&q=javascript&type=video&maxResults=10&key=YOUR_API_KEY
-and get vies subscriber and many others :https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=VIDEO_ID_1,VIDEO_ID_2,VIDEO_ID_3&key=YOUR_API_KEY
+and get views subscriber and many others :https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=VIDEO_ID_1,VIDEO_ID_2,VIDEO_ID_3&key=YOUR_API_KEY
 
 
 upadate till : 6-3-24 ;
@@ -23,3 +23,14 @@ the comment flow for backend now i thinking that
 then display all comments 
 
 now move to frontend and make a comments display components 
+
+comments done;
+
+now i start watchHistory of user (1-4-24)
+--------------------------------
+
+- first i create a wathchistory controller and setup all thing 
+- when video resent viewed then change only updated time not add another videoId in user 
+-seprated by viewed date 
+then make a wathchistoryget controller from get history 
+and then work in frontend make backend first that a flow of history 

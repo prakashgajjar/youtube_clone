@@ -1,6 +1,6 @@
 import express from 'express';
-const router = express.Router();
 import VideoData from '../controllers/VideoDetail.controller.js';
+const router = express.Router();
 
 router.post('/video',VideoData);
 

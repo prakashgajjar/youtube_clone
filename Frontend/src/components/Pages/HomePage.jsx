@@ -3,10 +3,15 @@ import TagLine from '../Main/TagLine'
 import Chennal from '../Features/Chennal'
 import { useAppContext } from '../../Hooks/AppContext'
 import CreateChannel from '../Features/CreateChannel'
+import { useEffect } from 'react'
 
 const HomePage = () => {
 
-  const { showChannel, showCreateChannel} = useAppContext();
+  const { showChannel, showCreateChannel , setShowCreateChannel} = useAppContext();
+
+  useEffect(()=>{
+    setShowCreateChannel(false)
+  },[])
 
   return (
     <div className='h-full w-screen  overflow-hidden '>

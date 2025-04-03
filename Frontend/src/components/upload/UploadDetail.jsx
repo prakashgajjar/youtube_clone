@@ -1,4 +1,4 @@
-import React, { useState, useRef , useEffect } from 'react'
+import { useState, useRef , useEffect } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
@@ -23,7 +23,7 @@ const UploadDetail = () => {
                navigate('/');
                
            }else{
-            console.error('Error uploading video', error.message);
+            console.error('Error uploading video');
            }
         } catch (error) {
             console.error({error : error.messgae , where : "videoAndThumbnail"})
@@ -53,7 +53,7 @@ const UploadDetail = () => {
                     <div className=' cursor-pointer' onClick={()=>{
                         navigate('/');
                     }}>
-                        <img src="/logos/cross.png" className='' alt="" srcset="" />
+                        <img src="/logos/cross.png" className='' alt=""  />
                     </div>
                 </div>
                 <div className='flex h-[750px] '>
@@ -154,17 +154,17 @@ const UploadDetail = () => {
                             <h1 className='text-lg font-bold mt-4'>Audience</h1>
                             <h1 className='text-[16px] mt-1 font-bold'>Is this video made for kids? (required)</h1>
                             <p className='text-sm mt-3'>
-                                Regardless of your location, you're legally required to comply with the Children's Online Privacy Protection Act (COPPA) and/or other laws. You're required to tell us whether your videos are made for kids. <span className='text-blue-400'> What's content made for kids?</span></p>
+                                Regardless of your location, youre legally required to comply with the Childrens Online Privacy Protection Act (COPPA) and/or other laws. You're required to tell us whether your videos are made for kids. <span className='text-blue-400'> What's content made for kids?</span></p>
                         </div>
                         <div>
                             <div className="flex gap-2 flex-col mt-7 ">
                                 <div>
                                     <input type="radio" name="kid" id="kid-yes" />
-                                    <label htmlFor="kid-yes" className='font-semibold'> Yes, it's made for kids</label>
+                                    <label htmlFor="kid-yes" className='font-semibold'> Yes, its made for kids</label>
                                 </div>
                                 <div>
                                     <input type="radio" name="kid" id="kid-no" />
-                                    <label htmlFor="kid-no" className='font-semibold'> No, it's not made for kids</label>
+                                    <label htmlFor="kid-no" className='font-semibold'> No, its not made for kids</label>
                                 </div>
                             </div>
                         </div>

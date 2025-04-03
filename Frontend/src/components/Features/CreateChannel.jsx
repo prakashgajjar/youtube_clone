@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useAppContext } from '../../Hooks/AppContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const CreateChannel = () => {
 
     const {userDetail} = useAppContext();
-    console.log(userDetail.data.user.user.email);
 
     const sendChannelData = async ()=>{
         try {             
         const responceData = await axios.post('http://localhost:3000/channel/create',{
             channelName: ChannelName,
             channelHandle: ChannelHandle,
-            userId : userDetail.data.user.user._id,
-            userEmail : userDetail.data.user.user.email
             },
             {
                 headers: { 'Content-Type': 'application/json' },
@@ -69,7 +67,7 @@ const CreateChannel = () => {
                                 console.log("Channel Handle: ", ChannelHandle)
                                 setShowCreateChannel(false);
                                 sendChannelData();
-                                 navigate(`/channel/${userDetail.data.user.user._id}`)
+                                navigate(`/channel/${userDetail.data.user.user._id}`)
                             }}>Create Channel</h1>
                         </div>
                     </div>

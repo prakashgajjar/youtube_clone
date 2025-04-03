@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useAppContext } from '../../Hooks/AppContext';
 import { useNavigate } from "react-router-dom";
 
@@ -13,11 +13,11 @@ const UploadVideo = () => {
                    setShowUploadVideo(false)
                    navigate('/upload/video');
                 }}>
-                    <img src="logos/GoLive.png" alt="live" srcset="" />
+                    <img src="logos/GoLive.png" alt="live"  />
                     <h1 className='text-white text-md'>Upload video</h1>
                 </div>
                 <div className='w-full hover:bg-white hover:bg-opacity-20 px-2 py-1 rounded-md flex cursor-pointer  items-center gap-2'>
-                    <img src="logos/your_video.png" alt="" srcset="" />
+                    <img src="logos/your_video.png" alt="" />
                     <h1 className='text-white text-md '>Go live</h1>
                 </div>
             </div>

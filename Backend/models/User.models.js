@@ -4,9 +4,9 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String  , required : true },
-  profilePicture: { type: String, default: "" },
-  subscribedChannels: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Channels the user has subscribed to
-  watchHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }], 
+  profilePicture: { type: String, default: "default.webp" },
+  subscribedChannels: [{ type: mongoose.Schema.Types.ObjectId, ref: "Channel" }], // Channels the user has subscribed to
+  watchHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "History" }], 
   likedVideos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
   plan: { 
     type: String, 
@@ -18,7 +18,8 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Channel"
     }],
-    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }]
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+    watchLater:[{type: mongoose.Schema.Types.ObjectId, ref:'Video'}]
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);

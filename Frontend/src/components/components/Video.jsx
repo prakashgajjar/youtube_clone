@@ -1,4 +1,4 @@
-import React from 'react'
+
 import moment from "moment";
 
 const Video = ({video}) => {
@@ -10,7 +10,7 @@ const Video = ({video}) => {
         </div>
         <div id='writed_component' className='flex gap-3 mt-2'>
           <div className='bg-red-400 rounded-full h-10 w-10 '>
-            <img src="" alt="" srcset="" />
+            <img src="" alt="" />
           </div>
           <div className='-mt-1'>
             <div className='flex gap-2 max-h-14  overflow-hidden'>
