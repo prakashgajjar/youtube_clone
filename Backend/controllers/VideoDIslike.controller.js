@@ -1,4 +1,5 @@
 import Video from "../models/Video.models.js";
+import User from "../models/User.models.js";
 
 const VideoDislike = async (req,res)=>{
     const {videoId} = req.body
@@ -10,6 +11,7 @@ const VideoDislike = async (req,res)=>{
     
     if(!video.dislikes.includes(req.user.id)){
       video.dislikes.push(req.user.id);
+      await User.findOneAndUpdate({_id:req.user.id},{$pull:{likedVideos : video._id}})
     }
     else{
       video.dislikes.pull(req.user.id);

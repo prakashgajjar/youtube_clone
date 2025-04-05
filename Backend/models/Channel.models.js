@@ -16,7 +16,7 @@ const ChannelChema = mongoose.Schema({
     subscribers: {type: Number , default: 0 , min:0},
     subscribersDetail: [{type : mongoose.Schema.Types.ObjectId , ref : 'User'}], 
     banner : { type: String},
-    profilePicture : { type: String},
+    profilePicture : { type: String , default:'default.jpg'},
     videos : [{type : mongoose.Schema.Types.ObjectId  , ref: "Video" }],
     createdAt: { type: Date, default: Date.now }
 })

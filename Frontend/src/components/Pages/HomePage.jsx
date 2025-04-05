@@ -14,13 +14,13 @@ const HomePage = () => {
   },[])
 
   return (
-    <div className='h-full w-screen  overflow-hidden '>
-      <div className='mt-1 flex'>
+    <div className='h-full w-screen  overflow-hidden main'>
+      <div className='mt-1 flex '>
         <div className='h-full w-full  mt-2 overflow-hidden'>
           <div>
             <TagLine />
           </div>
-          <div className='mt-7  overflow-y-auto absolute h-[850px]    '>
+          <div className='mt-7  overflow-y-auto absolute h-[850px] custom-scroll    '>
             <div>
               <RightSide />
             </div>

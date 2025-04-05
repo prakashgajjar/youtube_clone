@@ -11,11 +11,11 @@ const TagLine = () => {
     };
 
     return (
-        <div className="relative w-[1630px]">
+        <div className="relative w-[1630px] main">
             {/* Scrollable Tag Container */}
             <div 
                 ref={scrollRef} 
-                className="flex gap-2 overflow-x-auto custom-scroll scrollbar-hide w-full"
+                className="flex gap-2 overflow-x-auto custom-scroll scrollbar-hide w-full main"
             >
                 <TagName name="Node.js" />
                 <TagName name="React-Router" />

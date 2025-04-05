@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [search, setSearch] = useState('');
 
   const suggetionsOfVodes = async () => {
-    const responce = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search || "songs"}&type=video&maxResults=30&key=AIzaSyBDoap04Bn6habL9HJF7mSKyjoYuSUScXs`)
+    const responce = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search || "songs"}&type=video&maxResults=30&key=AIzaSyBAQ093QIbEtavBUqLcyY7K9KQjl7UqHJY`)
     if (responce) {
       setVideoData(responce.data.items);
     }
@@ -20,7 +20,7 @@ const SearchBar = () => {
   return (
     <div onKeyDown={(event) => {
       if (event.key === 'Enter') {
-        // suggetionsOfVodes();
+        suggetionsOfVodes();
       }
     }}>
       <div className='flex'>

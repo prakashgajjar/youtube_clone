@@ -1,5 +1,6 @@
 import ListComponent from '../components/ListComponent'
 import {  useNavigate } from 'react-router-dom';
+import GroupSubPannel from '../Subscriptions/GroupSubPannel';
 
 const GroupList1 = () => {
     const navigate = useNavigate();
@@ -9,17 +10,17 @@ const GroupList1 = () => {
             <div onClick={()=>{
                 navigate('/');
             }}>
-                <ListComponent url="logos/home.png" name="Home" />
+                <ListComponent url="http://localhost:5173/logos/home.png" name="Home" />
             </div>
             <div onClick={()=>{
                 navigate('/api/shorts');
             }}>
-                <ListComponent url="logos/shorts.png" name="Shorts" />
+                <ListComponent url={`http://localhost:5173/logos/shorts.png`} name="Shorts" />
             </div>
             <div onClick={()=>{
                 navigate('/api/subscriptions');
             }}>
-                <ListComponent url="logos/subscription.png" name="Subscription" />
+                <ListComponent url="http://localhost:5173/logos/subscription.png" name="Subscription" />
             </div>
             <div>
                 <hr className='mt-4 opacity-20' />
@@ -28,23 +29,29 @@ const GroupList1 = () => {
                 <div onClick={() => {
                     navigate('/history');
                 }}>
-                    <ListComponent url="logos/history.png" name="History" />
+                    <ListComponent url="http://localhost:5173/logos/history.png" name="History" />
                 </div>
                 <div onClick={() => {
                     navigate('/myvideos');
                 }}>
-                    <ListComponent url="logos/your_video.png" name="Your videos" />
+                    <ListComponent url="http://localhost:5173/logos/your_video.png" name="Your videos" />
                 </div>
                 <div onClick={() => {
-                    navigate('/watchLater');
+                    navigate('/watchlater');
                 }}>
-                    <ListComponent url="logos/watch_later.png" name="Watch later" />
+                    <ListComponent url="http://localhost:5173/logos/watch_later.png" name="Watch later" />
                 </div>
                 <div onClick={()=>{
-                    navigate('/likedVideos');
+                    navigate('/likedvideos');
                 }}>
-                    <ListComponent url="logos/like.png" name="Liked videos" />
+                    <ListComponent url="http://localhost:5173/logos/like.png" name="Liked videos" />
                 </div>
+            </div>
+            <div>
+                <hr className='mt-4 opacity-20' />
+            </div>
+            <div>
+                <GroupSubPannel/>
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ const getComments = async (req,res)=>{
     const {videoId} = req.body;
     try {
   
-    const commentsDetails = await Comment.find({videoId : videoId}).populate('channel')
+    const commentsDetails = await Comment.find({videoId : videoId , isReply:false}).populate('channel')
     res.status(200).json({message : "success" , Comments : commentsDetails});
     
     } catch (error) {

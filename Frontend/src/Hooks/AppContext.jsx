@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
     const [FunctionCallVideo, setFunctionCallVideo] = useState(false);
     const [inputText , setInputText] = useState("");
     const [videoData, setVideoData] = useState(null);
+    const [channelDetailHome, setChannelDetailHome] = useState(null);
 
     return (
         <AppContext.Provider value={{
@@ -20,7 +21,7 @@ const AppProvider = ({ children }) => {
             showUploadVideo, setShowUploadVideo, channelDetail, setChannelDetail, 
             setChannelExits, channelExits, setShowChannel, showChannel, 
             showCreateChannel, setShowCreateChannel, userDetail, setUserDetail , setVideoData,
-            videoData,setInputText,inputText
+            videoData,setInputText,inputText,channelDetailHome,setChannelDetailHome
         }}>
             {children}
         </AppContext.Provider>

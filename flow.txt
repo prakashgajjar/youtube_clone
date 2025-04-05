@@ -34,3 +34,22 @@ now i start watchHistory of user (1-4-24)
 -seprated by viewed date 
 then make a wathchistoryget controller from get history 
 and then work in frontend make backend first that a flow of history 
+
+
+today : 5-4-25
+
+-make a watch later 
+-make a click video url make and route set complete 
+-complete channel (update , video in channel , change , delete video  )
+-only subscribed channel videos 
+-intigarte payment for channel  memberships 
+-intigarte payment for youtube premium for more feature 
+
+today  : 6-4-25
+
+fix bugs , complete final touch , video play complete , sorting 
+add new feature like category and filter it 
+
+extra feature : 
+
+nortification and more things 

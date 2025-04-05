@@ -48,15 +48,13 @@ const VideoGroup = () => {
     }, [])
 
     return (
-        <div className='flex flex-wrap gap-[19px] overflow-y-auto'>
+        <div className='flex flex-wrap gap-[19px] overflow-y-auto custom-scroll'>
             {
                 videosData && videosData.map((data, index) => {
                     return (
-                        <div className='cursor-pointer' key={data._id || index} onClick={()=>{
+                        <div className='cursor-pointer  ' key={data._id || index} onClick={()=>{
                             console.log('Page is open');
                             addVideoInUserHistory(data._id);
-                            navigate(`/${videosData[index]._id}`);
-
                         }}>
                             <Video video={data} />
                         </div>

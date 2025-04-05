@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String  , required : true },
-  profilePicture: { type: String, default: "default.webp" },
+  profilePicture: { type: String, default: "default1.jpg" },
   subscribedChannels: [{ type: mongoose.Schema.Types.ObjectId, ref: "Channel" }], // Channels the user has subscribed to
   watchHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "History" }], 
   likedVideos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],

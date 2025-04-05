@@ -14,6 +14,9 @@ import CommentsRoter from './routes/Comments.routes.js';
 import WatchHistory from './routes/WatchHistory.routes.js';
 import YourVideos from './routes/YourVideo.routes.js'
 import WatchLater from './routes/WatchLater.routes.js';
+import VideoViews from './routes/VideoViews.routes.js'
+import LikedVideos from './routes/LikedVideos.routes.js'
+import SubscriptionsRoter from './routes/Subscription.route.js';
 
 import upload from './middlewares/Upload.middleware.js';
 import AuthUser from './middlewares/Auth.middleware.js';
@@ -42,13 +45,16 @@ app.use(express.static('public'));
 app.use('/api',SignUpRoutes);
 app.use('/auth' ,AuthUser , GetAuthUser);
 app.use('/file' , AuthUser , upload.array('profilePic' ,2),MulterFile);
-app.use('/channel',AuthUser,ChannelRoutes);
+app.use('/channel',ChannelRoutes);
 app.use('/videos' , GetVideos);
 app.use('/video',AuthUser,VideoLikeDislikeRoutes);
 app.use('/comments',CommentsRoter);
 app.use('/watch',WatchHistory);
+app.use('/views',VideoViews);
 app.use('/studio',YourVideos);
 app.use('/watchlater',WatchLater);
+app.use('/liked',LikedVideos);
+app.use('/subscriptions',SubscriptionsRoter);
 app.use('/upload',AuthUser , upload.fields([
     {name : 'video', maxCount :1},
     {name : "thumbnail" , maxCount :1}

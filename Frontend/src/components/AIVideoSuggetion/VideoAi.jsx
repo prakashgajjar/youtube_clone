@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
-import { useAppContext } from '../../Hooks/AppContext'
+
 import moment from 'moment'
 
 const VideoAi = ({video}) => {

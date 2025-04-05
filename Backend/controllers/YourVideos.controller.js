@@ -2,8 +2,8 @@ import User from '.././models/User.models.js'
 const yourVideos = async (req,res)=>{
     try {
         const user = await User.findOne({_id: req.user.id}).populate({
-            path: 'videos',
-            populate: { path: 'channel' },
+            path: 'channel',
+            populate: { path: 'videos' },
         })
         if (!user) return res.status(404).json({ message: 'unauthorized' });
         res.status(200).json(user);

@@ -4,7 +4,7 @@ import WatchLaterAdd from '../controllers/WatchLaterAdd1.controller.js'
 import authUser from '../middlewares/Auth.middleware.js';
 const router = express.Router();
 
-router.post('/',authUser,WatchLater);
+router.get('/',authUser,WatchLater);
 router.post('/add',authUser,WatchLaterAdd);
 
 export default router;

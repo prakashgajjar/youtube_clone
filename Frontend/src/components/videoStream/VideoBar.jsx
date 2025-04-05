@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useAppContext } from '../../Hooks/AppContext';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import ReportAlert from '../components/ReportAlert';
 import moment from "moment";
 import GroupComment from '../Features/GroupComment';
 import InputComment from '../Features/InputComment';
+import { useAppContext } from '../../Hooks/AppContext';
 
 
 const VideoBar = () => {
@@ -21,9 +21,9 @@ const VideoBar = () => {
                     withCredentials: true
                 });
             if (responce.status === 200 || responce.status === 201) {
-                console.log(responce.data.channel._id);
+                // console.log(responce.data.channel._id);
                 setVideoData(responce.data)
-                console.log(videoData)
+                // console.log(videoData)
             } else {
                 console.error('Error fetching video details', responce.message);
             }
@@ -43,7 +43,9 @@ const VideoBar = () => {
                     withCredentials: true
                 });
             if (responce.status === 200) {
-                console.log('Subscribed successfully', responce.data);
+                setChangeSub(false)
+                setSubData(responce.data.channelData)
+                console.log('Subscribed successfully', responce.data.channelData);
             } else {
                 console.error('Error subscribing channel', responce.message);
             }
@@ -51,6 +53,7 @@ const VideoBar = () => {
             console.error(error.message)
         }
     }
+    const [subData , setSubData] = useState(null)
 
     const cheackSubscribedChannel = async () => {
         try {
@@ -63,7 +66,6 @@ const VideoBar = () => {
                     withCredentials: true
                 });
             if (responce.status === 200) {
-                console.log('Subscribed', responce.data);
                 setCheackSubscribed(true);
             } else {
                 console.error('Error subscribing channel', responce.message);
@@ -71,7 +73,6 @@ const VideoBar = () => {
             }
         } catch (error) {
             console.error("error in cheack subscriber", error.message)
-
         }
     }
 
@@ -83,12 +84,19 @@ const VideoBar = () => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             })
+            if (responce.status === 200) {
 
-            console.log(responce);
+                console.log(responce.data.video.likes.length);
+                setlike(responce.data.video.likes.length)
+                // console.log(responce);
+            }
+
         } catch (error) {
             console.error(error.message)
         }
     }
+
+    const [like , setlike] = useState(null)
 
     const Dislike = async () => {
         try {
@@ -98,7 +106,9 @@ const VideoBar = () => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             })
-            console.log(responce);
+            if(responce){
+            // console.log(responce);
+            }
         } catch (error) {
             console.error(error.message)
         }
@@ -147,7 +157,10 @@ const VideoBar = () => {
     const [showReport, setShowReport] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [videoData, setVideoData] = useState();
-    const { showCreateChannel } = useAppContext();
+
+    const navigate = useNavigate()
+
+    const {showCreateChannel} = useAppContext();
 
     useEffect(() => {
         cheackSubscribedChannel();
@@ -158,6 +171,12 @@ const VideoBar = () => {
         checkLikeOrDislike();
         cheackSubscribedChannel();
     }, [videoData])
+
+    useEffect(() => {
+        checkLikeOrDislike();
+        cheackSubscribedChannel();
+        getVideoDetail()
+    }, [])
     return (
         <div>
             <div>
@@ -166,22 +185,24 @@ const VideoBar = () => {
             <div className='w-[1280px] h-[55px] mt-2'>
                 <div className='flex items-center  justify-between'>
                     <div className='flex gap-3'>
-                        <div className='w-[42px] h-[42px] bg-red-500 rounded-full'>
-
+                        <div className='w-[42px] h-[42px]  rounded-full'>
+                            <img className='w-[42px] h-[42px]  rounded-full' src={`http://localhost:3000/images/${videoData && videoData.channel.profilePicture}`} alt=""  />
                         </div>
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col cursor-pointer' onClick={()=>{
+                            navigate(`/channel/${videoData.channel._id}`)
+                        }}>
                             {
                                 videoData && <h1 className=' font-medium text-xl font-sans'>{videoData.channel.channelName}</h1>
                             }
                             {
-                                videoData && <h1 className='text-white opacity-40 text-sm'>{videoData.channel.subscribers} subscriber</h1>
+                                videoData && <h1 className='text-white opacity-40 text-sm'>{ videoData && videoData.channel.subscribers} subscriber</h1>
                             }
                         </div>
                         <div>
                             <div className={` w-24 h-10 rounded-full flex justify-center items-center ml-2  ${cheackSubscribed ? "bg-[#2b2b2b]  text-white" : "bg-white text-black"}`} onClick={() => {
                                 subscribeChannel();
                             }}>
-                                <h1 className={`font-semibold cursor-pointer `}>{cheackSubscribed ? "Subscribed" : "Subscribe"}</h1>
+                                <h1 className={`font-semibold cursor-pointer `}>{  cheackSubscribed ? "Subscribed" : "Subscribe"}</h1>
                             </div>
                         </div>
                     </div>
@@ -192,7 +213,9 @@ const VideoBar = () => {
                                 <img src={`logos/${isLike ? "like.png" : "likeV.png"}`} alt="like" className='flex w-6' onClick={() => {
                                     LikeVideo();
                                 }} />
-                                <h1>{videoData ? videoData.likes.length : ""} </h1>
+                                <h1>{like ? like : videoData ? videoData.likes.length : ""  } {
+
+                                    }</h1>
                             </div>
                             <div className="relative flex justify-center items-center ">
                                 <svg className="w-1 h-7 text-gray-500" xmlns="http://www.w3.org/2000/svg">
@@ -236,7 +259,6 @@ const VideoBar = () => {
                                 </div>
                             }
                         </div>
-
                         <div className='absolute left-[50%] top-[50%]'>
                             {
                                 showAlert && <ReportAlert />
@@ -245,7 +267,6 @@ const VideoBar = () => {
                     </div>
                 </div>
                 <div className='bg-[#303030] rounded-xl max-h-28  w-full mt-3'>
-
                     {
                         videoData && <div>
                             <div className='flex gap-2 ml-4 pt-2 '>
@@ -270,7 +291,6 @@ const VideoBar = () => {
                     <GroupComment />
                 </div>
                 <div>
-
                 </div>
             </div>
         </div>

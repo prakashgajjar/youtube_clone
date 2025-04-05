@@ -8,7 +8,7 @@ import GroupVideoAi from '../AIVideoSuggetion/GroupVideoAi'
 const SteamVideoPage = () => {
   const { showChannel } = useAppContext()
   return (
-    <div className='text-white w-screen h-screen flex-col   overflow-y-auto  flex gap-6 '>
+    <div className='text-white w-screen h-screen flex-col   overflow-y-auto  flex gap-6 custom-scroll '>
       <div>
         <div>
           <div>

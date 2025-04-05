@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import  { useEffect } from 'react'
+import {  useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../Hooks/AppContext'
 import axios from 'axios';
 
@@ -7,11 +7,8 @@ const Chennal = () => {
     const {setShowCreateChannel , setShowChannel , showChannel , channelExits , setChannelExits , userDetail ,channelDetail , setChannelDetail } = useAppContext();
     const getChanelDetail = async ()=>{
         try {
-            // console.log(userDetail.data.user.user._id)
             const responce = await axios.post('http://localhost:3000/channel/detail',
                 {
-                    userId : userDetail._id,
-                    userEmail : userDetail.email
                 },
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -44,7 +41,7 @@ const Chennal = () => {
         <div className='text-white h-56 w-[300px] bg-[#282828] rounded-xl z-[50]'>
             <div className='flex gap-5 pt-3 ' >
                 <div className='ml-3 '>
-                    <img src="images/bg06.jpg" className='w-10 h-10 mt-2 rounded-full' alt="" />
+                    <img src={`http://localhost:3000/images/${channelDetail && channelDetail.profilePicture}`} className='w-10 h-10 mt-2 rounded-full' alt="" />
                 </div>
                 <div className='flex flex-col'>
                     <div className='flex flex-col '>
@@ -57,8 +54,7 @@ const Chennal = () => {
                             <h1 className='text-blue-400 cursor-pointer'
                             onClick={()=>{
                                 setShowChannel(false);
-                                navigate(`/channel/${channelDetail.userId}`)
-                                
+                                navigate(`/channel/${channelDetail._id}`)
                             }}
                             >Show channel</h1>
                         </div>

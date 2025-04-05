@@ -1,15 +1,12 @@
 import User from "../models/User.models.js";
 const savedVideos = async (req, res) => {
-    const { id } = req.body;
-    if (!id) {
-        return res.status(400).json({ message: "No video ID provided." });
-    }
+
     try {
-        const user = await User.findOne({_id: id}).populate({
+        const user = await User.findOne({_id: req.user.id}).populate({
             path: "watchLater",
-            // populate: { path: "videoId", populate: { path: "channel" } }
+            populate: { path: "channel" } 
         })
-        return res.status(200).json({ message: "success", video });
+        return res.status(200).json({ message: "success", user });
 
     } catch (error) {
         console.log(error.message);

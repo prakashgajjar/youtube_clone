@@ -33,7 +33,7 @@ const Comment = ({ comment }) => {
         <div>
             <div className='flex gap-2 '>
                 <div>
-                    <img src="" alt="Logo" className='w-10 h-10 rounded-full bg-red-400' />
+                    <img src={`http://localhost:3000/images/${comment.channel.profilePicture}`} alt="Logo" className='w-10 h-10 rounded-full bg-red-400' />
                 </div>
                 <div className='flex flex-col justify-start ml-2'>
                     <div className='flex gap-2'>
@@ -71,7 +71,7 @@ const Comment = ({ comment }) => {
 
                 <div className='flex flex-col ml-14 mt-1 relative'>
                     <div className='flex'>
-                        <img src="" alt="" className='bg-red-600 w-[22px] h-[22px] rounded-full' />
+                        <img src={`http://localhost:3000/images/${comment.channel.profilePicture}`}alt="" className='bg-red-600 w-[22px] h-[22px] rounded-full' />
 
                         <div className="relative w-full ml-4">
                             <input

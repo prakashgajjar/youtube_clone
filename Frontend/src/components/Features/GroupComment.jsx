@@ -17,7 +17,7 @@ const GroupComment = () => {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true
         })
-      console.log(responce.data.Comments[0]);
+      // console.log(responce.data.Comments[0]);
       if (responce.status == 200) {
         setComments(responce.data.Comments)
       }
@@ -35,7 +35,7 @@ const GroupComment = () => {
                   headers: { 'Content-Type': 'application/json' },
                   withCredentials: true
                 })
-                console.log(responce.data.subcommentsget.subComments);
+                // console.log(responce.data.subcommentsget.subComments);
                 setSubComments(responce.data.subcommentsget.subComments);
           } catch (error) {
               console.error(error.message);
