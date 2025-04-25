@@ -53,7 +53,7 @@ const videoRef= useRef();
               
             }
         }}>
-          <source src="/video-1741175723721-402653096.mp4" type="video/mp4" />
+          <source src="http://localhost:5173/video/video-1741175723721-402653096.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         </div>

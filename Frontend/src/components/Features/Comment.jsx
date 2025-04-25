@@ -26,14 +26,13 @@ const Comment = ({ comment }) => {
 
     }
 
-
     const [showInput, setShowInput] = useState(false);
     const [inputText , setInputText] = useState("");
     return (
         <div>
             <div className='flex gap-2 '>
                 <div>
-                    <img src={`http://localhost:3000/images/${comment.channel.profilePicture}`} alt="Logo" className='w-10 h-10 rounded-full bg-red-400' />
+                    <img src={`http://localhost:3000/banners/${comment.channel.profilePicture}`} alt="Logo" className='w-10 h-10 rounded-full bg-red-400' />
                 </div>
                 <div className='flex flex-col justify-start ml-2'>
                     <div className='flex gap-2'>
@@ -48,11 +47,11 @@ const Comment = ({ comment }) => {
                         <div>
                             <div className='flex gap-5 items-center '>
                                 <div className='flex gap-2'>
-                                    <img src="logos/likeV.png" alt="like" className='w-[22px] h-[22px]' />
+                                    <img src="http://localhost:5173/logos/likeV.png" alt="like" className='w-[22px] h-[22px]' />
                                     <h1>{comment.likes}</h1>
                                 </div>
                                 <div>
-                                    <img src="logos/likeV.png" alt="dislike" className='rotate-180 w-[22px] h-[22px]' />
+                                    <img src="http://localhost:5173/logos/likeV.png" alt="dislike" className='rotate-180 w-[22px] h-[22px]' />
                                 </div>
                                 <div className='flex justify-center items-center cursor-pointer w-14 h-7 hover:bg-white hover:bg-opacity-15 hover:rounded-full' onClick={() => {
                                     setShowInput(true);

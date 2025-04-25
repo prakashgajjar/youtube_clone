@@ -15,7 +15,6 @@ const GroupHistoryVideo = () => {
       console.log(responce.data.watchHistory);
       if (responce.status == 200) {
         seHistoty(responce.data.watchHistory)
-        setId(responce.data._id);
         // console.log(responce.data._id);
       } else {
         console.log("Error getting history video");
@@ -26,25 +25,21 @@ const GroupHistoryVideo = () => {
 
   }
   useEffect(() => {
-    if (location.pathname === '/history') {
+    if (location.pathname === '/my/history') {
       getHistoryVideo();
     }
   }, [location.pathname])
   const [history, seHistoty] = useState([])
-  const [id, setId] = useState('');
-  const navigate =  useNavigate();
   return (
-    <div className="overflow-y-auto h-screen w-screen custom-scroll">
+    <div className="overflow-y-auto h-screen w-screen custom-scroll ">
       <div className="ml-48 ">
         <div className="pt-4">
           <h1 className="text-4xl font-bold">Watch history</h1>
         </div>
         <div className="mt-8 gap-3 flex flex-col ">
           {history && history.map((video, index) => (
-            <div key={index} className="last:pb-[76px]" onClick={()=>{
-              navigate(`/${video.videoId._id}`);
-            }}>
-              <HistoryVideo  video={video} hId={id} />
+            <div key={index} className="last:pb-[76px]" >
+              <HistoryVideo  video={video}  />
             </div>
           ))}
 

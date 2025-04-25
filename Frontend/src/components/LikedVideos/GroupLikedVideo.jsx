@@ -25,14 +25,13 @@ const GroupLikedVideos = () => {
 
   }
   useEffect(() => {
-    if (location.pathname === '/likedvideos') {
+    if (location.pathname === '/my/likedvideos') {
       getLikedVideo();
     }
   }, [location.pathname])
-  const navigate = useNavigate();
   const [yourVideos, setYourVideos] = useState([])
   return (
-    yourVideos.length > 0 && <div className="flex w-screen h-screen gap-8">
+    yourVideos.length > 0 && <div className="flex w-screen  h-screen  gap-8">
       <div className="h-[895px] mt-8 w-96 bg-gradient-to-b from-red-800  to-transparent flex justify-center items-center   rounded-t-2xl">
         <div className="flex flex-col justify-start  w-[312px] h-[839px]">
           <div className="flex justify-center rounded-lg">
@@ -53,19 +52,16 @@ const GroupLikedVideos = () => {
             }
             </div>
           </div>
-
         </div>
       </div>
       <div>
-        <div className="overflow-y-auto h-full w-full custom-scroll">
+        <div className="overflow-y-auto  w-[1267px] h-full  custom-scroll">
           <div className="">
             <div className="pt-4">
             </div>
             <div className="mt-8 gap-3 flex flex-col ">
               {yourVideos && yourVideos.map((video, index) => (
-                <div key={index} className="last:pb-[76px]" onClick={()=>{
-                  navigate(`/${video._id}`)
-                }}>
+                <div key={index} className="last:pb-[76px]" >
                   <LikedVideos video={video} channelName={video.channel.channelName} />
                 </div>
               ))}

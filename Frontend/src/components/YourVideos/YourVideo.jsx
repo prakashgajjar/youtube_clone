@@ -1,16 +1,23 @@
+import { useNavigate } from "react-router-dom";
 
 
-const YourVideo = ({video,channelName , hId}) => {
+const YourVideo = ({ video, channel }) => {
+    const navigate = useNavigate();
+
     return (
         <div className="">
             <div className=" h-[138px] w-[760px] flex justify-between  ">
                 <div className="flex gap-4 ">
-                    <div className="h-[138px] w-[246px]  bg-red-500 rounded-lg">
-                    <img className="rounded-lg h-[138px] min-w-[246px]"  src={`http://localhost:3000/images/${video.thumbnail}`} alt="thumbnail" />
+                    <div className="h-[138px] w-[246px]  bg-red-500 rounded-lg cursor-pointer" onClick={() => {
+                        navigate(`/video/${video._id}`)
+                    }}>
+                        <img className="rounded-lg h-[138px] min-w-[246px]" src={`http://localhost:3000/images/${video.thumbnail}`} alt="thumbnail" />
                     </div>
                     <div className="pt-1 w-[514px]">
-                        <div className="flex justify-between">
-                            <div>
+                        <div className="flex justify-between cursor-pointer">
+                            <div onClick={() => {
+                                navigate(`/video/${video._id}`)
+                            }}>
                                 <h1 className="text-xl font-semibold">{video.tital}</h1>
                             </div>
                             <div className="flex">
@@ -27,18 +34,20 @@ const YourVideo = ({video,channelName , hId}) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex gap-1">
-                            <h1 className="text-sm opacity-60">{channelName}</h1>
-                            <h1 className="-mt-1">. </h1>
-                            <h1 className="text-sm opacity-60">{video.views}views</h1>
-                        </div>
-                        <div className="mt-2">
-                            <h1 className="text-sm opacity-60 overflow-ellipsis line-clamp-2">{video.description} </h1>
+                        <div className="cursor-pointer" onClick={() => {
+                                navigate(`/channel/${channel._id}`)
+                            }}>
+                            <div className="flex gap-1 cursor-pointer mt-1" >
+                                <h1 className="text-sm opacity-60">{channel.channelName}</h1>
+                                <h1 className="-mt-1">. </h1>
+                                <h1 className="text-sm opacity-60">{video.views} views</h1>
+                            </div>
+                            <div className="mt-2">
+                                <h1 className="text-sm opacity-60 overflow-ellipsis line-clamp-2">{video.description} </h1>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     )

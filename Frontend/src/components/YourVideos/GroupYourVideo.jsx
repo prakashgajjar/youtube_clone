@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import YourVideo from "./YourVideo";
 
@@ -15,7 +15,7 @@ const GroupYourVideo = () => {
       console.log(responce.data.channel[0]);
       if (responce.status == 200) {
         setYourVideos(responce.data.channel[0].videos)
-        setChannelName(responce.data.channel[0].channelName)
+        setChannel(responce.data.channel[0])
         setId(responce.data._id);
       } else {
         console.log("Error getting history video");
@@ -26,13 +26,12 @@ const GroupYourVideo = () => {
 
   }
   useEffect(() => {
-    if (location.pathname === '/myvideos') {
+    if (location.pathname === '/my/myvideos') {
       getYourVideo();
     }
   }, [location.pathname])
-  const navigate = useNavigate();
   const [yourVideos, setYourVideos] = useState([])
-  const [channelName , setChannelName] = useState();
+  const [channel , setChannel] = useState();
   const [id, setId] = useState('');
   return (
     <div className="overflow-y-auto h-screen w-screen custom-scroll">
@@ -42,10 +41,8 @@ const GroupYourVideo = () => {
         </div>
         <div className="mt-8 gap-3 flex flex-col ">
           {yourVideos && yourVideos.map((video, index) => (
-            <div key={index} className="last:pb-[76px]" onClick={()=>{
-              navigate(`/${video._id}`)
-            }}>
-              <YourVideo  video={video} channelName={channelName} hId={id} />
+            <div key={index} className="last:pb-[76px]" >
+              <YourVideo  video={video} channel={channel} hId={id} />
             </div>
           ))}
 

@@ -26,11 +26,9 @@ const SteamVideoPage = () => {
             <div>
               <RunnigVideo />
             </div>
-
             <div id='channelName'>
               <VideoBar />
             </div>
-
           </div>
           <div className=' w-[30%] ml-4 mt-5'>
             <GroupVideoAi />

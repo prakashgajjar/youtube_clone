@@ -1,32 +1,39 @@
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import Options from '../components/Options';
+import { useState } from 'react';
 
-const HistoryVideo = ({video , hId}) => {
-  const historyDelet = ()=>{
-    try {
-      const responce = axios.post('http://localhost:3000/watch/delete',{
-        id: hId
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        })
-      if (responce.status === 200) {
-        console.log('Video deleted from history successfully');
-      }else{
-        console.error('Error deleting video from history');
-      }
+const HistoryVideo = ({ video }) => {
+    const historyDelet = async () => {
+        try {
+            const responce = await axios.post('http://localhost:3000/watch/delete', {
+                id: video._id
+            },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                })
+            if (responce.status === 200) {
+                console.log('Video deleted from history successfully');
+            } else {
+                console.error('Error deleting video from history');
+            }
 
-    } catch (error) {
-      console.log(error);
+        } catch (error) {
+            console.log(error);
+        }
     }
-}
-
+    const navigate =  useNavigate();
+        const [showOption,setShowOption] = useState(false);
+    
     return (
         <div className="">
             <div className=" h-[138px] w-[760px] flex justify-between  ">
                 <div className="flex gap-4 ">
-                    <div className="h-[138px] w-[246px]  bg-red-500 rounded-lg">
-                    <img className="rounded-lg h-[138px] min-w-[246px]"  src={`http://localhost:3000/images/${video.videoId.thumbnail}`} alt="thumbnail" />
+                    <div className="h-[138px] w-[246px]  bg-red-500 rounded-lg" onClick={() => {
+                        navigate(`/video/${video.videoId._id}`);
+                    }}>
+                        <img className="rounded-lg h-[138px] min-w-[246px]" src={`http://localhost:3000/images/${video.videoId.thumbnail}`} alt="thumbnail" />
                     </div>
                     <div className="pt-1 w-[514px]">
                         <div className="flex justify-between">
@@ -40,11 +47,18 @@ const HistoryVideo = ({video , hId}) => {
                                         <line x1="90" y1="10" x2="10" y2="90" />
                                     </svg>
                                 </div>
-                                <div className="flex justify-center w-10 h-10 items-center  ">
+                                <div className="flex justify-center w-10 h-10 items-center  " onClick={()=>{
+                                    setShowOption(!showOption)
+                                }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" width="24" height="24" fill="currentColor">
                                         <path d="M64 144c26.5 0 48-21.5 48-48S90.5 48 64 48 16 69.5 16 96s21.5 48 48 48zm0 80c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48zm0 176c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z" />
                                     </svg>
                                 </div>
+                                {
+                                 showOption && <div className="ml-2  absolute mt-10 cursor-pointer w-48 text-white bg-[#282828] shadow-gray-600 rounded-xl  shadow-sm">
+                                  <Options  video={video} value={setShowOption} />
+                              </div>
+}
                             </div>
                         </div>
                         <div className="flex gap-1">

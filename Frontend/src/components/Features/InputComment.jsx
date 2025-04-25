@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useAppContext } from '../../Hooks/AppContext'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -17,7 +17,7 @@ const InputComment = () => {
                     withCredentials: true
                 })
 
-            console.log(responce)
+            // console.log(responce)
         } catch (error) {
             console.log(error.message)
         }
@@ -27,15 +27,14 @@ const InputComment = () => {
         try {
             const responce = await axios.post('http://localhost:3000/channel/detail',
                 {
-                
                 },
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 })
-                    console.log(responce)
-                    setData(responce.data.getChanneDetail);
-                
+            // console.log(responce)
+            setData(responce.data.getChanneDetail);
+
         } catch (error) {
             console.log(error.message)
         }
@@ -43,8 +42,8 @@ const InputComment = () => {
 
     useEffect(() => {
         getChannelDetail();
-        console.log("that a data :" , data)
-    },[])
+        console.log("that a data :", data)
+    }, [])
 
     const [data, setData] = useState(null);
     const { inputText, setInputText } = useAppContext();
@@ -54,7 +53,7 @@ const InputComment = () => {
                 <h1 className='text-2xl font-bold'>266 Comments</h1>
             </div>
             <div className='flex mt-6'>
-                <img src={`http://localhost:3000/images/${data && data.profilePicture}`} alt="" className='bg-red-600 w-10 h-10 rounded-full' />
+                <img src={`http://localhost:3000/banners/${data && data.profilePicture}`} alt="profile" className='bg-red-600 w-10 h-10 rounded-full' />
 
                 <div className="relative w-full ml-4">
                     <input

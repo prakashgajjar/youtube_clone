@@ -53,3 +53,34 @@ add new feature like category and filter it
 extra feature : 
 
 nortification and more things 
+
+
+ai intigarte in my project idea for AI intigarte:
+
+-🗣️ Voice Search	Use speech-to-text so users can search with their voice
+- Comment Moderation	Use AI to detect spam/hate in comments
+- Chatbot Assistant	AI chatbot for help/support or video suggestions
+
+
+pending thigns that will be completed soon :
+
+-make a channel perfect add videos and shorts 
+-complete short page and perfect shoet 
+-complete the subscription page 
+-add payment gateway for subscriptions 
+-suggestions video with ai suggetions 
+-speech to text 
+-short uplaod studio
+short video fetch with search add tags 
+-complete the logout working 
+-video handling with mmmpag
+-make ai assistant for video title , tags , descriptions , 
+-make ai for quetions answer like whitch video is whatch now whitch video of whitch channel is upaldod today 
+-make ai for assistant 
+
+
+
+chnages after all thing are done :
+
+-video api call onScrollbase 20 video per scroll like that
+-every things working check in without login thats work or not 

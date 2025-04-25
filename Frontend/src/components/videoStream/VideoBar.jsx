@@ -1,300 +1,250 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {  useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 import ReportAlert from '../components/ReportAlert';
-import moment from "moment";
+import moment from 'moment';
 import GroupComment from '../Features/GroupComment';
 import InputComment from '../Features/InputComment';
-import { useAppContext } from '../../Hooks/AppContext';
-
 
 const VideoBar = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [videoData, setVideoData] = useState(null);
+    const [like, setLike] = useState(null);
+    const [isLike, setIsLike] = useState(null);
+    const [isDislike, setIsDislike] = useState(null);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [showReport, setShowReport] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+
+    // 1. Get video details
     const getVideoDetail = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/videos/detail',
-                {
-                    videoId: id
-                }
-                , {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                });
-            if (responce.status === 200 || responce.status === 201) {
-                // console.log(responce.data.channel._id);
-                setVideoData(responce.data)
-                // console.log(videoData)
-            } else {
-                console.error('Error fetching video details', responce.message);
+            const response = await axios.post('http://localhost:3000/videos/detail',
+                { videoId: id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+            if (response.status === 200 || response.status === 201) {
+                setVideoData(response.data);
+                setLike(response.data.likes.length);
             }
         } catch (error) {
-            console.error(error.message)
+            console.error('Error fetching video details:', error.message);
         }
-    }
+    };
 
+    // 2. Subscribe channel
     const subscribeChannel = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/channel/subscribe',
-                {
-                    channelId: videoData.channel._id
-                }
-                , {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                });
-            if (responce.status === 200) {
-                setChangeSub(false)
-                setSubData(responce.data.channelData)
-                console.log('Subscribed successfully', responce.data.channelData);
+            const response = await axios.post('http://localhost:3000/channel/subscribe',
+                { channelId: videoData.channel._id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+            if (response.status === 200) {
+                setIsSubscribed(true);
+            }
+        } catch (error) {
+            console.error('Error subscribing:', error.message);
+        }
+    };
+
+    // 3. Check if already subscribed
+    const checkSubscribedChannel = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/channel/isSubcribed',
+                { channelId: videoData.channel._id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+            if (response.status === 200) {
+                setIsSubscribed(true);
             } else {
-                console.error('Error subscribing channel', responce.message);
+                setIsSubscribed(false);
             }
         } catch (error) {
-            console.error(error.message)
+            console.error('Error checking subscription:', error.message);
         }
-    }
-    const [subData , setSubData] = useState(null)
+    };
 
-    const cheackSubscribedChannel = async () => {
+    // 4. Like video
+    const likeVideo = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/channel/isSubcribed',
-                {
-                    channelId: videoData.channel._id
-                }
-                , {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                });
-            if (responce.status === 200) {
-                setCheackSubscribed(true);
-            } else {
-                console.error('Error subscribing channel', responce.message);
-                setCheackSubscribed(false);
+            const response = await axios.post('http://localhost:3000/video/like',
+                { videoId: id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+            if (response.status === 200) {
+                setLike(response.data.video.likes.length);
+                setIsLike(true);
+                setIsDislike(false);
             }
         } catch (error) {
-            console.error("error in cheack subscriber", error.message)
+            console.error('Error liking video:', error.message);
         }
-    }
+    };
 
-    const LikeVideo = async () => {
+    // 5. Dislike video
+    const dislikeVideo = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/video/like', {
-                videoId: id
-            }, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            })
-            if (responce.status === 200) {
+            const response = await axios.post('http://localhost:3000/video/dislike',
+                { videoId: id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
 
-                console.log(responce.data.video.likes.length);
-                setlike(responce.data.video.likes.length)
-                // console.log(responce);
-            }
-
-        } catch (error) {
-            console.error(error.message)
-        }
-    }
-
-    const [like , setlike] = useState(null)
-
-    const Dislike = async () => {
-        try {
-            const responce = await axios.post('http://localhost:3000/video/dislike', {
-                videoId: id
-            }, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            })
-            if(responce){
-            // console.log(responce);
+            if (response.status === 200) {
+                setIsDislike(true);
+                setIsLike(false);
             }
         } catch (error) {
-            console.error(error.message)
+            console.error('Error disliking video:', error.message);
         }
-    }
+    };
 
+    // 6. Check like/dislike status
     const checkLikeOrDislike = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/video/checkLike', {
-                videoId: id
-            }, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            })
-            if (responce.status === 200) {
-                setIsLike(true);
-            }
-            if (responce.status === 201) {
-                setIsDislike(true);
-            }
+            const response = await axios.post('http://localhost:3000/video/checkLike',
+                { videoId: id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
 
+            if (response.status === 200) {
+                setIsLike(response.data.isLiked);
+                setIsDislike(response.data.isDisLiked);
+            }
         } catch (error) {
-            console.error(error.message)
+            console.error('Error checking like/dislike:', error.message);
         }
-    }
+    };
 
+    // 7. Report video
     const submitReport = async () => {
         try {
-            const responce = await axios.post('http://localhost:3000/video/report', {
-                videoId: id
-            }, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            })
-            if (responce.status === 200) {
+            const response = await axios.post('http://localhost:3000/video/report',
+                { videoId: id },
+                { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+            if (response.status === 200) {
                 setShowAlert(true);
                 setTimeout(() => setShowAlert(false), 2000);
             }
         } catch (error) {
-            console.log(error.message)
+            console.error('Error reporting video:', error.message);
         }
-    }
+    };
 
-    const [cheackSubscribed, setCheackSubscribed] = useState(false);
-    const [isLike, setIsLike] = useState(false);
-    const [isDislike, setIsDislike] = useState(false);
-    const [showReport, setShowReport] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [videoData, setVideoData] = useState();
-
-    const navigate = useNavigate()
-
-    const {showCreateChannel} = useAppContext();
-
+    // Fetch video on id change
     useEffect(() => {
-        cheackSubscribedChannel();
-        getVideoDetail();
-    }, [showCreateChannel])
+        if (id) getVideoDetail();
+    }, [id]);
 
+    // When video data is fetched
     useEffect(() => {
-        checkLikeOrDislike();
-        cheackSubscribedChannel();
-    }, [videoData])
+        if (videoData) {
+            checkSubscribedChannel();
+            checkLikeOrDislike();
+        }
+    }, [videoData]);
 
-    useEffect(() => {
-        checkLikeOrDislike();
-        cheackSubscribedChannel();
-        getVideoDetail()
-    }, [])
+    if (!videoData) return <div className="text-white mt-10">Loading video details...</div>;
+
     return (
-        <div>
-            <div>
-                <h1 className='font-bold text-xl font-sans mt-2'>{videoData && videoData.tital}</h1>
-            </div>
-            <div className='w-[1280px] h-[55px] mt-2'>
-                <div className='flex items-center  justify-between'>
-                    <div className='flex gap-3'>
-                        <div className='w-[42px] h-[42px]  rounded-full'>
-                            <img className='w-[42px] h-[42px]  rounded-full' src={`http://localhost:3000/images/${videoData && videoData.channel.profilePicture}`} alt=""  />
+        <div className="text-white">
+            <h1 className="font-bold text-xl font-sans mt-2">{videoData.title}</h1>
+
+            <div className="w-[1280px] h-[55px] mt-2">
+                <div className="flex items-center justify-between">
+                    {/* Channel Info */}
+                    <div className="flex gap-3">
+                        <img
+                            className="w-[42px] h-[42px] rounded-full"
+                            src={`http://localhost:3000/banners/${videoData.channel.profilePicture}`}
+                            alt="Channel"
+                        />
+                        <div
+                            className="flex flex-col cursor-pointer"
+                            onClick={() => navigate(`/channel/${videoData.channel._id}`)}
+                        >
+                            <h1 className="font-medium text-xl">{videoData.channel.channelName}</h1>
+                            <p className="text-white opacity-40 text-sm">{videoData.channel.subscribers} subscribers</p>
                         </div>
-                        <div className='flex flex-col cursor-pointer' onClick={()=>{
-                            navigate(`/channel/${videoData.channel._id}`)
-                        }}>
-                            {
-                                videoData && <h1 className=' font-medium text-xl font-sans'>{videoData.channel.channelName}</h1>
-                            }
-                            {
-                                videoData && <h1 className='text-white opacity-40 text-sm'>{ videoData && videoData.channel.subscribers} subscriber</h1>
-                            }
-                        </div>
-                        <div>
-                            <div className={` w-24 h-10 rounded-full flex justify-center items-center ml-2  ${cheackSubscribed ? "bg-[#2b2b2b]  text-white" : "bg-white text-black"}`} onClick={() => {
-                                subscribeChannel();
-                            }}>
-                                <h1 className={`font-semibold cursor-pointer `}>{  cheackSubscribed ? "Subscribed" : "Subscribe"}</h1>
-                            </div>
+                        <div
+                            className={`w-24 h-10 rounded-full flex justify-center items-center ml-2 cursor-pointer ${isSubscribed ? "bg-[#2b2b2b] text-white" : "bg-white text-black"}`}
+                            onClick={subscribeChannel}
+                        >
+                            <h1 className="font-semibold">{isSubscribed ? "Subscribed" : "Subscribe"}</h1>
                         </div>
                     </div>
-                    <div className='flex gap-3 ' > {/* like dislike and share and dowload and report button */}
 
-                        <div className='h-10 w-36 bg-[#2b2b2b] text-white rounded-full flex   '>
-                            <div className='w-[60%]  h-full rounded-l-full flex items-center justify-center gap-3 cursor-pointer'>
-                                <img src={`logos/${isLike ? "like.png" : "likeV.png"}`} alt="like" className='flex w-6' onClick={() => {
-                                    LikeVideo();
-                                }} />
-                                <h1>{like ? like : videoData ? videoData.likes.length : ""  } {
-
-                                    }</h1>
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                        {/* Like/Dislike */}
+                        <div className="h-10 w-36 bg-[#2b2b2b] rounded-full flex">
+                            <div className="w-[60%] flex items-center justify-center gap-2 cursor-pointer" onClick={likeVideo}>
+                                <img src={`http://localhost:5173/logos/${isLike ? "like.png" : "likeV.png"}`} className="w-6" />
+                                <h1>{like}</h1>
                             </div>
-                            <div className="relative flex justify-center items-center ">
-                                <svg className="w-1 h-7 text-gray-500" xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="2" />
-                                </svg>
-                            </div>
-                            <div className='w-[40%] h-full rounded-r-full flex justify-center items-center cursor-pointer'>
-                                <img src={`logos/${isDislike ? "likeClick.png" : "likeV.png"}`} alt="like" className='flex rotate-180 w-6' onClick={() => {
-                                    Dislike();
-                                }} />
+                            <div className="w-[2px] bg-gray-600"></div>
+                            <div className="w-[40%] flex items-center justify-center cursor-pointer" onClick={dislikeVideo}>
+                                <img src={`http://localhost:5173/logos/${isDislike ? "dislike.png" : "likeV.png"}`} className="w-6 rotate-180" />
                             </div>
                         </div>
 
-                        <div className=' bg-[#2b2b2b] rounded-full w-24 flex justify-center items-center gap-3 cursor-pointer'>
-                            <img src="logos/share.png" alt="" className='w-6' />
+                        {/* Share */}
+                        <div className="bg-[#2b2b2b] rounded-full w-24 flex justify-center items-center gap-2 cursor-pointer">
+                            <img src="http://localhost:5173/logos/share.png" className="w-6" />
                             <h1>Share</h1>
                         </div>
-                        <div className=' bg-[#2b2b2b] rounded-full w-32 flex justify-center items-center gap-3 cursor-pointer'>
-                            <img src="logos/download.png" alt="" className='w-6' />
+
+                        {/* Download */}
+                        <div className="bg-[#2b2b2b] rounded-full w-32 flex justify-center items-center gap-2 cursor-pointer">
+                            <img src="http://localhost:5173/logos/download.png" className="w-6" />
                             <h1>Download</h1>
                         </div>
-                        <div className=' bg-[#2b2b2b] rounded-full w-28 flex justify-center items-center gap-3 cursor-pointer'>
-                            <img src="logos/heart.png" alt="" className='w-6' />
+
+                        {/* Thanks */}
+                        <div className="bg-[#2b2b2b] rounded-full w-28 flex justify-center items-center gap-2 cursor-pointer">
+                            <img src="http://localhost:5173/logos/heart.png" className="w-6" />
                             <h1>Thanks</h1>
                         </div>
-                        <div className=' bg-[#2b2b2b] rounded-full w-10 flex justify-center items-center cursor-pointer' onClick={() => {
-                            setShowReport(!showReport)
-                        }}>
-                            <h1 className='relative -top-2 tracking-wider text-3xl'>...</h1>
+
+                        {/* Report Button */}
+                        <div className="bg-[#2b2b2b] rounded-full w-10 flex justify-center items-center cursor-pointer" onClick={() => setShowReport(!showReport)}>
+                            <h1 className="text-3xl flex -mt-4" >...</h1>
                         </div>
 
-                        <div className='relative mt-2'>
-                            {
+                        {/* Report Dropdown */}
+                        {showReport && (
+                            <div className="absolute mt-12 -ml-10 bg-[#2b2b2b] w-[90px] rounded-md shadow-md py-1 flex justify-center items-center cursor-pointer" onClick={submitReport}>
+                                <h1 className="text-xl">Report</h1>
+                            </div>
+                        )}
 
-                                showReport && <div className='absolute bg-[#2b2b2b] -right-[40px] transition-all duration-300 mt-11  w-[90px]  rounded-md shadow-md py-1 flex justify-center items-center cursor-pointer' onClick={() => {
-                                    submitReport();
-                                }}>
-                                    <div className='flex'>
-                                        <h1 className='text-xl'>Report</h1>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div className='absolute left-[50%] top-[50%]'>
-                            {
-                                showAlert && <ReportAlert />
-                            }
-                        </div>
+                        {/* Alert */}
+                        {showAlert && (
+                            <div className="absolute left-[50%] top-[50%]">
+                                <ReportAlert />
+                            </div>
+                        )}
                     </div>
                 </div>
-                <div className='bg-[#303030] rounded-xl max-h-28  w-full mt-3'>
-                    {
-                        videoData && <div>
-                            <div className='flex gap-2 ml-4 pt-2 '>
-                                <div>
-                                    <h1 className='font-semibold'>{videoData.views} views</h1>
-                                </div>
-                                <div>
-                                    <h1 className='font-semibold'>{moment(videoData.createdAt).fromNow()}</h1>
-                                </div>
-                            </div>
-                            <div className='mt-2 ml-4 pb-2 '>
-                                <h1>{videoData.description}</h1>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div className='mt-6'> {/* comment section start here */}
-                    <InputComment />
 
+                {/* Description Box */}
+                <div className="bg-[#303030] rounded-xl max-h-28 w-full mt-3 p-4">
+                    <div className="flex gap-4">
+                        <h1 className="font-semibold">{videoData.views} views</h1>
+                        <h1 className="font-semibold">{moment(videoData.createdAt).fromNow()}</h1>
+                    </div>
+                    <p className="mt-2">{videoData.description}</p>
                 </div>
-                <div className='mt-8 '>
+
+                {/* Comment Section */}
+                <div className="mt-6">
+                    <InputComment />
+                </div>
+                <div className="mt-8">
                     <GroupComment />
-                </div>
-                <div>
                 </div>
             </div>
         </div>
-    )
-}
-
-export default VideoBar
+    );
+};
+export default VideoBar;

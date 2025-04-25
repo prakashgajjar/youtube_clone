@@ -1,7 +1,6 @@
 import  { useState, useEffect } from 'react'
 import Video from '../components/Video'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 
 const VideoGroup = () => {
@@ -41,7 +40,7 @@ const VideoGroup = () => {
         }
     }
     const [videosData, setVideosData] = useState(null);
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         getVideos()

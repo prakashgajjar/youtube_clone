@@ -1,21 +1,36 @@
 import { useEffect, useState } from "react";
 import VideoAi from "./VideoAi";
-import { useAppContext } from "../../Hooks/AppContext";
+import axios from 'axios'
 
 const GroupVideoAi = () => {
-  const { videoData } = useAppContext();
-  const [visible  , setVisible] = useState(false)
 
-  useEffect(()=>{
- if(videoData){
-      setVisible(true);
- }
-  },[videoData])
+  const getVideos = async () => {
+    try {
+      const responce = await axios.get('http://localhost:3000/videos', {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
+      })
+      if (responce.status === 200) {
+        console.log(responce.data)
+        setVideosData(responce.data)
+        console.log(videoData[0].thumbnail)
+      } else {
+        console.error('Error fetching videos', responce.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getVideos()
+  }, [])
+
+  const [videoData , setVideosData] = useState([])
 
   return (
-    <div className="gap-2 flex flex-col overflow-y-auto h-full ">
+  videoData &&  <div className="gap-2 flex flex-col overflow-y-auto h-full ">
       {
-       visible && videoData.map((video) => <VideoAi key={video.id.VideoId} video = {video}/>)}
+       videoData.map((video) => <VideoAi key={video._id} video={video} />)}
     </div>
   );
 };

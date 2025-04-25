@@ -1,47 +1,10 @@
 import moment from "moment";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Options from "./Options";
 
 const Video = ({ video }) => {
 
-  const addVideoInWatchLater = async (id) => {
-    try {
-      const responce = await axios.post('http://localhost:3000/watchlater/add',
-        {
-          id: id
-        }, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      })
-      if (responce.status === 200) {
-        console.log(responce.data)
-      } else {
-        console.error('Error fetching videos', responce.message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const addVideoReport = async (id) => {
-    try {
-      const responce = await axios.post('http://localhost:3000/video/report',
-        {
-          videoId: id
-        }, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      })
-      if (responce.status === 200) {
-        console.log(responce.data)
-      } else {
-        console.error('Error fetching videos', responce.message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const navigate = useNavigate();
   const [showOption, setShowOption] = useState(false);
 
@@ -49,13 +12,15 @@ const Video = ({ video }) => {
     <div>
       <div className='w-[392px] h-[342px] text-white'>
         <div className='w-[392px] h-[221px] rounded-xl' onClick={() => {
-          navigate(`/${video._id}`);
+          navigate(`/video/${video._id}`);
         }}>
           <img src={`http://localhost:3000/images/${video.thumbnail}`} className="w-full h-full rounded-xl" alt="Thumbnail" />
         </div>
         <div id='writed_component' className='flex gap-3 mt-3'>
           <div className='bg-red-400 rounded-full h-10 w-10 '>
-            <img className="rounded-full h-10 w-10" src={`http://localhost:3000/images/${video.channel.profilePicture}`} alt="" />
+            <img className="rounded-full h-10 w-10" src={`http://localhost:3000/banners/${video.channel.profilePicture}`} alt="" onClick={() => {
+              navigate(`/channel/${video.channel._id}`)
+            }}/>
           </div>
           <div className='-mt-1'>
             <div className='flex gap-2 max-h-14  overflow-hidden'>
@@ -77,24 +42,15 @@ const Video = ({ video }) => {
               </div>
               {showOption && (
                 <div className="absolute ml-[310px] mt-8 w-48 text-white bg-[#282828] shadow-gray-600 rounded-xl  shadow-sm">
-                  <div className="hover:bg-gray-100 hover:bg-opacity-20 px-4 py-2 cursor-pointer text-sm font-medium  rounded-t-lg" onClick={()=>{
-                    addVideoInWatchLater(video._id);
-                    setShowOption(false);
-                  }}>
-                    Watch later
-                  </div>
-                  <div className="hover:bg-gray-100 hover:bg-opacity-20 px-4 py-2 cursor-pointer text-sm font-medium rounded-b-lg" onClick={()=>{
-                    addVideoReport(video._id);
-                    setShowOption(false);
-                  }}>
-                    Report
-                  </div>
+                  <Options video={video} value={setShowOption} />
                 </div>
               )}
 
             </div>
-            <div>
-              <p className='text-gray-400 text-sm'>{video.channel.ChannelHandle}</p>
+            <div onClick={() => {
+              navigate(`/channel/${video.channel._id}`)
+            }}>
+              <p className='text-gray-400 text-sm font-medium mb-1'>{video.channel.channelName}</p>
               <div className='flex gap-2'>
                 <h1>{video.views} views</h1>
                 <h1 className='-mt-4 text-3xl'>.</h1>

@@ -13,12 +13,13 @@ const GroupList1 = () => {
                 <ListComponent url="http://localhost:5173/logos/home.png" name="Home" />
             </div>
             <div onClick={()=>{
-                navigate('/api/shorts');
+                navigate('/shorts/1');
+                
             }}>
                 <ListComponent url={`http://localhost:5173/logos/shorts.png`} name="Shorts" />
             </div>
             <div onClick={()=>{
-                navigate('/api/subscriptions');
+                navigate('/feed/subscriptions');
             }}>
                 <ListComponent url="http://localhost:5173/logos/subscription.png" name="Subscription" />
             </div>
@@ -27,22 +28,22 @@ const GroupList1 = () => {
             </div>
             <div className='gap-1 flex flex-col mt-4'>
                 <div onClick={() => {
-                    navigate('/history');
+                    navigate('/my/history');
                 }}>
                     <ListComponent url="http://localhost:5173/logos/history.png" name="History" />
                 </div>
                 <div onClick={() => {
-                    navigate('/myvideos');
+                    navigate('/my/myvideos');
                 }}>
                     <ListComponent url="http://localhost:5173/logos/your_video.png" name="Your videos" />
                 </div>
                 <div onClick={() => {
-                    navigate('/watchlater');
+                    navigate('/my/watchlater');
                 }}>
                     <ListComponent url="http://localhost:5173/logos/watch_later.png" name="Watch later" />
                 </div>
                 <div onClick={()=>{
-                    navigate('/likedvideos');
+                    navigate('/my/likedvideos');
                 }}>
                     <ListComponent url="http://localhost:5173/logos/like.png" name="Liked videos" />
                 </div>

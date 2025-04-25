@@ -37,7 +37,7 @@ const Header = () => {
           <div className='cursor-pointer'>
             <BellIcons/>
           </div>
-          <div className='mr-[31px] cursor-pointer'>
+          <div className='mr-[31px] cursor-pointer   '>
             <ProfileIcon/>
           </div>
         </div>

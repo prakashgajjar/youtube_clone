@@ -48,8 +48,12 @@ const GroupComment = () => {
   const [liveComment , setLiveComment] = useState('')
 
   useEffect(() => {
-    comments && getComment();
+     getComment();
   }, [])
+
+  useEffect(()=>{
+     getComment();
+  },[id])
 
   return (
     <div>

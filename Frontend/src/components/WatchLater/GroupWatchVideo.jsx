@@ -25,11 +25,10 @@ const GroupWatchVideo = () => {
 
   }
   useEffect(() => {
-    if (location.pathname === '/watchlater') {
+    if (location.pathname === '/my/watchlater') {
       getLikedVideo();
     }
   }, [location.pathname])
-  const navigate = useNavigate();
   const [yourVideos, setYourVideos] = useState([])
   return (
       yourVideos.length > 0 && <div className="flex w-screen h-screen gap-8">
@@ -62,9 +61,7 @@ const GroupWatchVideo = () => {
             </div>
             <div className="mt-8 gap-3 flex flex-col ">
               {yourVideos && yourVideos.map((video, index) => (
-                <div key={index} className="last:pb-[76px]" onClick={()=>{
-                  navigate(`/${video._id}`);
-                }}>
+                <div key={index} className="last:pb-[76px]" >
                   <WatchLaterVideo video={video} channelName={video.channel.channelName} />
                 </div>
               ))}

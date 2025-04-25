@@ -21,7 +21,8 @@ const AppProvider = ({ children }) => {
             showUploadVideo, setShowUploadVideo, channelDetail, setChannelDetail, 
             setChannelExits, channelExits, setShowChannel, showChannel, 
             showCreateChannel, setShowCreateChannel, userDetail, setUserDetail , setVideoData,
-            videoData,setInputText,inputText,channelDetailHome,setChannelDetailHome
+            videoData,setInputText,inputText,channelDetailHome,setChannelDetailHome,
+            
         }}>
             {children}
         </AppContext.Provider>

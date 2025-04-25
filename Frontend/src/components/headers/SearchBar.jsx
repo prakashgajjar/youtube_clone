@@ -1,40 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { useAppContext } from '../../Hooks/AppContext'
-import axios from 'axios';
+import  { useEffect, useState } from 'react'
+import {  useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
-  const { setVideoData, videoData } = useAppContext();
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
+  const navigate  = useNavigate();
+  const params = new URLSearchParams(location.search);
+  const query1 = params.get('query');
 
-  const suggetionsOfVodes = async () => {
-    const responce = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search || "songs"}&type=video&maxResults=30&key=AIzaSyBAQ093QIbEtavBUqLcyY7K9KQjl7UqHJY`)
-    if (responce) {
-      setVideoData(responce.data.items);
-    }
-    console.log(videoData)
-  }
-  useEffect(() => {
-    suggetionsOfVodes();
-  }, [])
+  useEffect(()=>{
+    setQuery(query1)
+  },[])
 
   return (
-    <div onKeyDown={(event) => {
-      if (event.key === 'Enter') {
-        suggetionsOfVodes();
-      }
-    }}>
+    <div >
       <div className='flex'>
         <div className=''>
           <input type="text" className='outline-1 outline-blue-800 focus:outline  text-white border-opacity-10  bg-zinc-900 pl-4 rounded-l-full border border-white w-[530px] h-10'
             placeholder='Search'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={query }
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e)=>{
+              if(e.key === 'Enter' && query.length > 0){
+                navigate(`/results/search?query=${query}`)
+              }
+            }}
           />
         </div>
         <div className=' w-16 ml-[1px]  border-t border-b border-e border-white bg-[#222222] border-opacity-10 flex justify-center items-center rounded-r-full h-10' >
-          <img src="logos/search.png" className='w-[24px]' alt=""
+          <img src="http://localhost:5173/logos/search.png" className='w-[24px]' alt=""
             onClick={() => {
-              // suggetionsOfVodes();
+              navigate(`/results/search?query=${query}`)
             }}
           />
         </div>

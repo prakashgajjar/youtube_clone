@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const VideoSchema = new mongoose.Schema({
+ const VideoSchema = new mongoose.Schema({
   tital: { type: String, required: true },
   description: { type: String },
   video: { type: String, required: true },
@@ -14,6 +14,8 @@ const VideoSchema = new mongoose.Schema({
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   reports : [{type: mongoose.Schema.Types.ObjectId, ref:'User'}] ,
   user: [{type : mongoose.Schema.Types.ObjectId , ref: "User" }],
+  isShorts : {type : Boolean , default : false},
+  isForKid : {type: Boolean , default : false},
   createdAt: { type: Date, default: Date.now },
 }, { timestamps: true });
 

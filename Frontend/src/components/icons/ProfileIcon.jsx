@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 import { useAppContext } from '../../Hooks/AppContext'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -17,10 +17,8 @@ const ProfileIcon = () => {
             }
             )
             if (responce.status == 201){
-                console.log(responce.data.getChanneDetail);
+                // console.log(responce.data.getChanneDetail);
                 setChannelDetailHome(responce.data.getChanneDetail);
-            }else{
-                console.log("Error getting channel detail");
             }
     
         } catch (error) {
@@ -32,18 +30,18 @@ const ProfileIcon = () => {
             getChanelDetail()
         },[])
     return (
-        <div className='flex'>
+        <div className='flex z-[100] relative '>
             {
                 auth ? (
 
-                    <div className='w-10 h-10 flex justify-center items-center' onClick={()=>{
+                    <div className='w-10 h-10 flex justify-center items-center z-[100] relative' onClick={()=>{
                         setShowChannel(!showChannel);
                     }} >
-                        <img src={`http://localhost:3000/images/${channelDetailHome && channelDetailHome.profilePicture}`} alt="" className='w-8 h-8 rounded-full'  />
+                        <img src={`http://localhost:3000/banners/${channelDetailHome && channelDetailHome.profilePicture}`} alt="" className='w-8 h-8 rounded-full'  />
                     </div>
                 ) : (
                     <div className='w-24 h-9 flex justify-center items-center border gap-2 mt-[2px] border-white rounded-full'>
-                        <img src="logos/default_user.png" className='w-[25px]' alt=""  />
+                        <img src="http://localhost:5173/logos/default_user.png" className='w-[25px]' alt=""  />
                         <Link className='text-white font-sans text-sm font-bold' to="/auth">Sign in</Link>
                     </div>
                 )

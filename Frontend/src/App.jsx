@@ -15,39 +15,44 @@ import GroupHistoryVideo from './components/WatchHistory/GroupHistoryVideo'
 import GroupYourVideo from './components/YourVideos/GroupYourVideo'
 import GroupLikedVideo from './components/LikedVideos/GroupLikedVideo'
 import GroupWatchVideo from './components/WatchLater/GroupWatchVideo'
+import GropuSearchVideos from './components/Search/GropuSearchVideos'
+import SubscriptionVideoGroup from './components/Subscriptions/SubscriptionVideoGroup'
+import GroupShorts from './components/Shorts/GroupShorts'
 
 const App = () => {
   const location = useLocation();
-  // const watchPageFound = /^[a-zA-Z0-9]+$/.test(location.pathname.substring(1));
-  const watchPageFound = location.pathname !== "/watchlater" && location.pathname !== "/likedvideos" && location.pathname.startsWith('/channel') && location.pathname !== "/history" && location.pathname !== "/myvideos" && /^[a-zA-Z0-9]+$/.test(location.pathname.substring(1));
- 
-  const isNotFound = location.pathname !== "/watchlater" && location.pathname !== "/likedvideos" && location.pathname !== '/'  && location.pathname !== '/auth' && location.pathname !== "/myvideos"  && location.pathname !=='/history' && !watchPageFound && !location.pathname.startsWith('/channel');
+  const videoRunnigPage = /^\/video\/[a-zA-Z0-9]+$/.test(location.pathname);
+  const uploadVideo = location.pathname == '/upload/video'
 
   return (
     <AppProvider>
       <div className='w-screen h-screen overflow-hidden main'>
         <div>
-          <AuthUser/>
+          <AuthUser />
         </div>
         <div>
-          {!isNotFound  && <Header />}
+          { !uploadVideo && <Header />}
         </div>
+
         <div className='mt-1 flex'>
-          {
-         !isNotFound && !watchPageFound && <div className=' h-full w-[264px] px-4 -mt-1 '>
-              <LeftSide />
+          {!videoRunnigPage && !uploadVideo  &&
+            <div className=' h-full w-[264px] px-4 -mt-1 '>
+              <LeftSide /> 
             </div>
           }
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/:id' element={<SteamVideoPage/>} />
+            <Route path='/video/:id' element={<SteamVideoPage />} />
             <Route path='/auth' element={<UserSign />} />
             <Route path='/channel/:id' element={<ChannelPage />} />
-            <Route path='/upload/video' element={<VideoUploadPage/>} />
-            <Route path='/history' element={<GroupHistoryVideo/>}  />
-            <Route path='/myvideos' element={<GroupYourVideo/> } />
-            <Route path='/likedvideos' element={<GroupLikedVideo/>} />
-            <Route path='/watchlater' element={<GroupWatchVideo/>}/>
+            <Route path='/upload/video' element={<VideoUploadPage />} />
+            <Route path='/my/history' element={<GroupHistoryVideo />} />
+            <Route path='/my/myvideos' element={<GroupYourVideo />} />
+            <Route path='/my/likedvideos' element={<GroupLikedVideo />} />
+            <Route path='/my/watchlater' element={<GroupWatchVideo />} />
+            <Route path='/results/search' element={<GropuSearchVideos />} />
+            <Route path='/feed/subscriptions' element={<SubscriptionVideoGroup/>} />
+            <Route path='/shorts/:id' element={<GroupShorts/>} />
             <Route path='*' element={<NotFound404 />} />
           </Routes>
         </div>
