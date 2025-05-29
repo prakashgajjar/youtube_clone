@@ -5,13 +5,15 @@ import { useAppContext } from '../../Hooks/AppContext'
 import CreateChannel from '../Features/CreateChannel'
 import { useEffect } from 'react'
 
+
 const HomePage = () => {
 
-  const { showChannel, showCreateChannel , setShowCreateChannel} = useAppContext();
+  const { showChannel, showCreateChannel , setShowCreateChannel  } = useAppContext();
 
   useEffect(()=>{
     setShowCreateChannel(false)
   },[])
+
 
   return (
     <div className='h-full w-screen  overflow-hidden main'>

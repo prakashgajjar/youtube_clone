@@ -1,5 +1,5 @@
 import express from 'express';
-import fileData from '../../controllers/Multer.controller.js';
+import fileData from '../../controllers/multer/Multer.controller.js';
 
 const router = express.Router();
 router.post('/profile',fileData);

@@ -33,7 +33,7 @@ const SearchVideo = ({ data }) => {
            navigate(`/channel/${data.channel._id}`);
         }}>
           <img
-            src={`http://localhost:3000/images/${data.channel.profilePicture}`}
+            src={`http://localhost:3000/banners/${data.channel.profilePicture}`}
             alt="T-Series"
             className="w-6 h-6 rounded-full"
           />

@@ -22,6 +22,7 @@ import Shorts from './routes/shorts/Shorts.routes.js'
 
 import upload from './middlewares/Upload.middleware.js';
 import AuthUser from './middlewares/Auth.middleware.js';
+import FfmpegUse from './middlewares/FfmpegUse.middleware.js';
 import GetAuthUser from './controllers/auth/GetAuthUser.controller.js';
 import mongooseConnection from './configs/connectDB.js';
 EventEmitter.defaultMaxListeners = 20;
@@ -61,7 +62,7 @@ app.use('/results',SearchVideo);
 app.use('/upload',AuthUser , upload.fields([
     {name : 'video', maxCount :1},
     {name : "thumbnail" , maxCount :1}
-]), VideoRouter);
+]),FfmpegUse, VideoRouter);
 
 const PORT = process.env.PORT ||5000;
 app.listen(PORT , ()=>{

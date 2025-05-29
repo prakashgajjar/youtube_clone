@@ -84,3 +84,19 @@ chnages after all thing are done :
 
 -video api call onScrollbase 20 video per scroll like that
 -every things working check in without login thats work or not 
+
+----------------------------------------------------------------
+
+feature high advance  : 1.we can make a  subscription for watch premioum videos 
+                        2.when we click that ckeck user have premium subcribsion or not and if yes then watch video 
+                        3.we can add AID show user can perches the subscribtion
+                        4. diffrent type of subscription 
+                        5.rasorpay for payment 
+                        6.channel premioum mean which channel have special subscription we show top in search and highligh with batch golder or silver 
+                        7.fast reach grow if channel have subcription
+                        
+
+
+
+
+

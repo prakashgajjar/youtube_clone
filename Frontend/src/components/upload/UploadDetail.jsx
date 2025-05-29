@@ -3,6 +3,7 @@ import { Listbox } from '@headlessui/react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+
 const UploadDetail = () => {
 
     const sendVideAndThumbnail = async () => {
@@ -24,7 +25,6 @@ const UploadDetail = () => {
             )
             if (responce.status === 200) {
                 console.log('Video uploaded successfully', responce.data);
-                navigate('/');
 
             } else {
                 console.error('Error uploading video');
@@ -81,6 +81,7 @@ const UploadDetail = () => {
 
     return (
         <div className='flex justify-center items-center h-screen w-screen bg-zinc-950 text-white'>
+            
             <div className='w-[1000px] h-[880px] bg-[#282828] rounded-[30px]'>
                 <div className='h-[68px] border-white  border-b-[1px] border-opacity-20 w-full flex items-center justify-between px-7'>
                     <h1 className='text-xl font-bold'>{videoDetail ? `${videoDetail.name.split(".").slice(0, -1).join(".")}` : ""}</h1>
@@ -284,6 +285,9 @@ const UploadDetail = () => {
                     <div className='w-[70px] h-9 bg-white rounded-full hover:bg-gray-300 active:scale-105  mb-1 text-black flex justify-center items-center'>
                         <h1 className='font-sans text-md font-semibold cursor-pointer ' onClick={() => {
                             sendVideAndThumbnail();
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 100);
                         }}>Next</h1>
                     </div>
                 </div>

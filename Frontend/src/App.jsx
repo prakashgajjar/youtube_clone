@@ -18,6 +18,9 @@ import GroupWatchVideo from './components/WatchLater/GroupWatchVideo'
 import GropuSearchVideos from './components/Search/GropuSearchVideos'
 import SubscriptionVideoGroup from './components/Subscriptions/SubscriptionVideoGroup'
 import GroupShorts from './components/Shorts/GroupShorts'
+import ChannelHome from './components/channelSubPages/ChannelHome'
+import ChannelVideos from './components/channelSubPages/ChannelVideos'
+import ChannelShorts from './components/channelSubPages/ChannelShorts'
 
 const App = () => {
   const location = useLocation();
@@ -31,28 +34,33 @@ const App = () => {
           <AuthUser />
         </div>
         <div>
-          { !uploadVideo && <Header />}
+          {!uploadVideo && <Header />}
         </div>
 
         <div className='mt-1 flex'>
-          {!videoRunnigPage && !uploadVideo  &&
+          {!videoRunnigPage && !uploadVideo &&
             <div className=' h-full w-[264px] px-4 -mt-1 '>
-              <LeftSide /> 
+              <LeftSide />
             </div>
           }
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/video/:id' element={<SteamVideoPage />} />
             <Route path='/auth' element={<UserSign />} />
-            <Route path='/channel/:id' element={<ChannelPage />} />
+            <Route path="/channel/:id" element={<ChannelPage />}>
+              <Route path='' element={<ChannelHome />} />
+              <Route path="videos" element={<ChannelVideos />} />
+              <Route path="shorts" element={<ChannelShorts />} />
+            </Route>
+
             <Route path='/upload/video' element={<VideoUploadPage />} />
             <Route path='/my/history' element={<GroupHistoryVideo />} />
             <Route path='/my/myvideos' element={<GroupYourVideo />} />
             <Route path='/my/likedvideos' element={<GroupLikedVideo />} />
             <Route path='/my/watchlater' element={<GroupWatchVideo />} />
             <Route path='/results/search' element={<GropuSearchVideos />} />
-            <Route path='/feed/subscriptions' element={<SubscriptionVideoGroup/>} />
-            <Route path='/shorts/:id' element={<GroupShorts/>} />
+            <Route path='/feed/subscriptions' element={<SubscriptionVideoGroup />} />
+            <Route path='/shorts/:id' element={<GroupShorts />} />
             <Route path='*' element={<NotFound404 />} />
           </Routes>
         </div>

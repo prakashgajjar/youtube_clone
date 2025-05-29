@@ -6,6 +6,7 @@ import moment from 'moment';
 import GroupComment from '../Features/GroupComment';
 import InputComment from '../Features/InputComment';
 
+
 const VideoBar = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -17,6 +18,9 @@ const VideoBar = () => {
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [showReport, setShowReport] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [showFullDescription, setShowFullDescription] = useState(false);
+
+
 
     // 1. Get video details
     const getVideoDetail = async () => {
@@ -148,7 +152,7 @@ const VideoBar = () => {
 
     return (
         <div className="text-white">
-            <h1 className="font-bold text-xl font-sans mt-2">{videoData.title}</h1>
+            <h1 className="font-bold text-xl font-sans mt-2">{videoData.tital}</h1>
 
             <div className="w-[1280px] h-[55px] mt-2">
                 <div className="flex items-center justify-between">
@@ -228,13 +232,25 @@ const VideoBar = () => {
                 </div>
 
                 {/* Description Box */}
-                <div className="bg-[#303030] rounded-xl max-h-28 w-full mt-3 p-4">
+                <div className="bg-[#303030] overflow-hidden rounded-xl w-full mt-3 p-4">
                     <div className="flex gap-4">
                         <h1 className="font-semibold">{videoData.views} views</h1>
                         <h1 className="font-semibold">{moment(videoData.createdAt).fromNow()}</h1>
                     </div>
-                    <p className="mt-2">{videoData.description}</p>
+
+                    <p className="mt-2">
+                        {showFullDescription ? videoData.description : `${videoData.description.slice(0, 120)}...`}
+                        {videoData.description.length > 120 && (
+                            <button
+                                className="text-blue-500 hover:border-0 border-0 ml-2 focus:outline-none"
+                                onClick={() => setShowFullDescription(!showFullDescription)}
+                            >
+                                {showFullDescription ? 'Show Less' : 'Show More'}
+                            </button>
+                        )}
+                    </p>
                 </div>
+
 
                 {/* Comment Section */}
                 <div className="mt-6">

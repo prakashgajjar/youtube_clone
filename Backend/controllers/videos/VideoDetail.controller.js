@@ -28,12 +28,13 @@ const videoData = async (req,res)=>{
       }
       console.log(video[0].filename , thumbnail[0].filename);
       const channel = await Channel.findOne({userId : req.user.id})
+       const filename = video[0].filename.split('.')[0];
 
       const newVideo = await Video.create({
         tital,
         description,
         thumbnail: thumbnail[0].filename,
-        video: video[0].filename,
+        video: filename,
         user: req.user.id,
         category : category || "anime",
         channel: channel._id,
@@ -43,7 +44,7 @@ const videoData = async (req,res)=>{
 
       channel.videos.push(newVideo._id);
       await channel.save();
-      console.log(channel)
+      // console.log(channel)
 
     if(newVideo){
         res.status(200).json({message : "Video added successfully" , id : newVideo._id})

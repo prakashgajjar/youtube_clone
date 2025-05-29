@@ -3,9 +3,9 @@ import Channel from '../../models/Channel.models.js'
 const channelInfo = async (req, res) => {
     const { id } = req.body;
     try {
-        const getChanneDetail = await Channel.findOne({_id : id}).populate('userId')
-        if(getChanneDetail){
-        return  res.status(201).json({getChanneDetail})
+        const getChannelDetail = await Channel.findOne({_id : id}).populate('userId')
+        if(getChannelDetail){
+        return  res.status(201).json({getChannelDetail})
         } else{
           return  res.status(404).json({message : "No channel found"})
         }
