@@ -3,7 +3,7 @@ import './App.css'
 import HomePage from './components/Pages/HomePage'
 import UserSign from './components/components/UserSign'
 import { AppProvider } from './Hooks/AppContext'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import ChannelPage from './components/Pages/ChannelPage'
 import LeftSide from './components/Main/LeftSide'
 import Header from './components/headers/Header'
@@ -48,7 +48,7 @@ const App = () => {
             <Route path='/video/:id' element={<SteamVideoPage />} />
             <Route path='/auth' element={<UserSign />} />
             <Route path="/channel/:id" element={<ChannelPage />}>
-              <Route path='' element={<ChannelHome />} />
+            <Route index element={<Navigate to="videos" replace />} />
               <Route path="videos" element={<ChannelVideos />} />
               <Route path="shorts" element={<ChannelShorts />} />
             </Route>

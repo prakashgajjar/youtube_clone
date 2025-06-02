@@ -4,7 +4,7 @@ import GetOneShort from '../../controllers/shorts/GetOneShort.controller.js'
 const router = express.Router();
 
 router.get('/' ,GetAllShorts);
-// router.get('/:id',GetOneShort);
+router.get('/:id',GetOneShort);
 
 export default router;
 

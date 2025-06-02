@@ -267,7 +267,6 @@ const ChannelPage = () => {
                 <div className='mt-5 '>
                     <div>
                         <ul className='flex gap-5 text-[17px] font-sans font-semibold  ml-1 '>
-                            <NavLink className={({ isActive }) => (isActive ? "border-b-2 hover:text-white" : "hover:text-white hover:border-white hover:border-opacity-55  hover:opacity-100 opacity-55 border-b-2 border-transparent pb-2")} end to={`/channel/${id}`}>Home</NavLink>
                             <NavLink className={({ isActive }) => (isActive ? "border-b-2 hover:text-white" : "hover:text-white hover:border-white hover:border-opacity-55  hover:opacity-100 opacity-55  pb-2 border-b-2 border-transparent")} to={`/channel/${id}/videos`}>Videos</NavLink>
                             <NavLink className={({ isActive }) => (isActive ? "border-b-2 hover:text-white" : "hover:text-white hover:border-white hover:border-opacity-55  hover:opacity-100 opacity-55 pb-2 border-b-2 border-transparent")} to={`/channel/${id}/shorts`}>Shorts</NavLink>
                         </ul>
@@ -276,7 +275,7 @@ const ChannelPage = () => {
                         <hr className=' ' />
                     </div>
                 </div>
-                <div className='mt-4 h-screen overflow-hidden'>
+                <div className='mt-4 h-screen w-[1400px] overflow-hidden'>
                     <Outlet />
                 </div>
             </div>

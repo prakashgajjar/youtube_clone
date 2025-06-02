@@ -9,6 +9,7 @@ const VideoAi = ({ video }) => {
             <div className='flex  justify-start items-center'>
                 <div className='w-44 h-24 rounded-xl ml-1' onClick={() => {
                     navigate(`/video/${video._id}`)
+                    location.reload();
                 }}>
                     <img src={`http://localhost:3000/images/${video.thumbnail}`} alt="thumbnail" className='w-full h-full rounded-xl' />
                 </div>

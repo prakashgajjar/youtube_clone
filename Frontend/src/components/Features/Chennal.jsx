@@ -63,7 +63,7 @@ const Chennal = () => {
         <div className='text-white h-56 w-[300px] bg-[#282828] rounded-xl z-[50]'>
             <div className='flex gap-5 pt-3 ' >
                 <div className='ml-3 '>
-                    <img src={`http://localhost:3000/banners/${channelDetail && channelDetail.profilePicture}`} className='w-10 h-10 mt-2 rounded-full' alt="" />
+                    <img src={`http://localhost:3000/banners/${(channelDetail && channelDetail.profilePicture) || "default.jpg"}`} className='w-10 h-10 mt-2 rounded-full' alt="" />
                 </div>
                 <div className='flex flex-col'>
                     <div className='flex flex-col '>

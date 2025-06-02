@@ -99,4 +99,8 @@ feature high advance  : 1.we can make a  subscription for watch premioum videos
 
 
 
-
+hey changes need after complete all feature :
+when search video that also show like 3 video and then short then 3 voideo and shorts seqaence
+in home page every refress chnage the new video fetch like subscriber & new channels & intressted 
+and fetch base on scrolling 
+ 

@@ -22,7 +22,7 @@ const YourVideo = ({ video, channel }) => {
                             <div onClick={() => {
                                 navigate(`/video/${video._id}`)
                             }}>
-                                <h1 className="text-[16px] font-semibold">{video.tital}</h1>
+                                <h1 className="text-[16px] font-semibold h-8 overflow-hidden">{video.tital}</h1>
                             </div>
                         </div>
                         <div className="cursor-pointer" onClick={() => {

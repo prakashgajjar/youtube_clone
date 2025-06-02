@@ -36,6 +36,7 @@ const ChannelVideos = () => {
     }
   }, [location.pathname])
 
+
   useEffect(() => {
     getYourVideo();
   },[])
@@ -47,9 +48,9 @@ const ChannelVideos = () => {
     const [channelId, setChannelId] = useState('');
   return (
     <div className="">
-             <div className="mt-2 gap-3 flex ">
+             <div className="mt-2 gap-3 flex flex-wrap ">
           {yourVideos && yourVideos.map((video, index) => (
-            <div key={index} className=" flex " >
+            <div key={index} className="mb-20" >
               <ChannelVideosCom  video={video} channel={channel} hId={channelId} />
             </div>
           ))}

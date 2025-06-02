@@ -10,6 +10,7 @@ import checkowner from '../../controllers/channel/CheckOwnerChannel.controller.j
 import AuthUser from '../../middlewares/Auth.middleware.js';
 import upload from '../../middlewares/UploadBanner.middleware.js';
 import channelVideoData from '../../controllers/channel/ChannelVideos.controller.js';
+import channelShortsData from '../../controllers/channel/ChannelShorts.controller.js';
 
 const router = express.Router();
 router.post('/create',AuthUser ,channelData);
@@ -21,6 +22,7 @@ router.post('/isSubcribed',AuthUser, CheackSubscribed);
 router.post('/update/banner', AuthUser, upload.single('banner'), uploadBanner);
 router.post('/update/profile', AuthUser, upload.single('profile'), uploadprofile);
 router.post('/videos' , channelVideoData);
+router.post('/shorts' , channelShortsData);
 
 
 export default router;

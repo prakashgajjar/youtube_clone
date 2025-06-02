@@ -1,71 +1,86 @@
 import ShortsVideo from './ShortsVideo';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const GroupShorts = () => {
-    const [shorts, setShorts] = useState([]);
-    const [page, setPage] = useState(0); // for pagination
-    const [hasMore, setHasMore] = useState(true);
-    const navigate = useNavigate();
-    const observer = useRef();
+  const [shorts, setShorts] = useState([]);
+  const observer = useRef(null);
 
-    const fetchShorts = async (pageNum) => {
-        try {
-            const res = await axios.get(`http://localhost:3000/shorts?id=${pageNum}&limit=5`, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            if (res.data.video.length === 0) {
-                setHasMore(false); 
-                return;
-            }
-            setShorts(prev => [...prev, ...res.data.video]);
-            if (pageNum === 0 && res.data.video.length > 0) {
-                navigate(`/shorts/${res.data.video[0]._id}`);
-            }
-        } catch (err) {
-            console.error("Error loading shorts", err.message);
-        }
-    };
+  // Fetch all shorts once
 
-    useEffect(() => {
-        fetchShorts(page);
-    }, [page]);
+  const {id} = useParams
 
-    // intersection observer callback
-    const lastVideoRef = useCallback((node) => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
-                setPage(prevPage => prevPage + 1);
-            }
+  useEffect(() => {
+  const fetchShorts = async () => {
+    try {
+      const res = id
+        ? await axios.get(`http://localhost:3000/shorts/${id}`, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          })
+        : await axios.get('http://localhost:3000/shorts', {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          });
+
+      setShorts(res.data?.video || []);
+    } catch (err) {
+      console.error('Error loading shorts', err.message);
+    }
+  };
+
+  fetchShorts();
+}, [id]);
+
+
+  // Observer for updating URL when video is visible
+  const observeVideos = useCallback(() => {
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const videoId = entry.target.getAttribute('data-id');
+
+          if (entry.intersectionRatio >= 0.5 && videoId) {
+            window.history.replaceState(null, '', `/shorts/${videoId}`);
+          }
         });
-        if (node) observer.current.observe(node);
-    }, [hasMore]);
-
-    return (
-        shorts && <div className="w-screen h-screen flex justify-center custom-scroll overflow-hidden">
-            <div
-                className="h-screen overflow-y-scroll main scroll-snap-y snap-mandatory"
-            >
-                <div>
-                    {shorts.map((data, key) => {
-                        const isSecondLast = key === shorts.length - 2;
-                        return (
-                            <div
-                                key={key}
-                                className="h-screen snap-start"
-                                ref={isSecondLast ? lastVideoRef : null}
-                            >
-                                <ShortsVideo video={data} />
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        </div>
+      },
+      { threshold: 0.5 }
     );
+
+    const elements = document.querySelectorAll('.video-container');
+    elements.forEach((el) => observer.current.observe(el));
+  }, []);
+
+  useEffect(() => {
+    if (shorts.length > 0) {
+      observeVideos();
+    }
+
+    return () => observer.current?.disconnect();
+  }, [shorts, observeVideos]);
+
+  return (
+   <div className="w-screen h-screen flex justify-center">
+      <div
+        className="h-screen overflow-y-scroll scroll-snap-y snap-mandatory custom-scroll"
+        style={{ scrollSnapType: 'y mandatory' }}
+      >
+        {shorts.map((video) => (
+          <div
+            key={video._id}
+            data-id={video._id}
+            className="video-container h-screen snap-start"
+          >
+            <ShortsVideo video={video} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default GroupShorts;

@@ -1,33 +1,54 @@
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import moment from 'moment'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 
 
 const Comment = ({ comment }) => {
-    const {id} = useParams();
+    const { id } = useParams();
+    const [data, setData] = useState(null);
 
-    const sendComment = async ()=>{
+    const getChannelDetail = async () => {
         try {
-            const responce = await axios.post("http://localhost:3000/comments/sendreply",  {
+            const responce = await axios.post('http://localhost:3000/channel/detail',
+                {
+                },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                })
+            // console.log(responce)
+            setData(responce.data.getChanneDetail);
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const sendComment = async () => {
+        try {
+            const responce = await axios.post("http://localhost:3000/comments/sendreply", {
                 videoId: id,
-                id:comment._id,
-                comment : inputText
-              },
-              {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-              })
-              console.log(responce);
+                id: comment._id,
+                comment: inputText
+            },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                })
+            console.log(responce);
         } catch (error) {
             console.error(error.message);
         }
-
     }
 
+    useEffect(()=>{
+        getChannelDetail();
+    },[])
+
     const [showInput, setShowInput] = useState(false);
-    const [inputText , setInputText] = useState("");
+    const [inputText, setInputText] = useState("");
     return (
         <div>
             <div className='flex gap-2 '>
@@ -70,17 +91,17 @@ const Comment = ({ comment }) => {
 
                 <div className='flex flex-col ml-14 mt-1 relative'>
                     <div className='flex'>
-                        <img src={`http://localhost:3000/images/${comment.channel.profilePicture}`}alt="" className='bg-red-600 w-[22px] h-[22px] rounded-full' />
-
+                        <img src={`http://localhost:3000/banners/${data && data.profilePicture}`} alt="" className='bg-red-600 w-[22px] h-[22px] rounded-full' />
+                        {/* mistack in upper code please cheack it  */}
                         <div className="relative w-full ml-4">
                             <input
                                 type="text"
                                 name="comment"
                                 className='w-full bg-transparent border-b-[1px] border-opacity-35 border-white focus:outline-none  transition-all duration-300 peer'
                                 value={inputText}
-                                onChange={(e)=>{
+                                onChange={(e) => {
                                     setInputText(e.target.value);
-                                    
+
                                 }}
                             />
                             <span className="absolute left-1/2 bottom-0 w-0 h-[1px] bg-white transition-all duration-300 peer-focus:left-0 peer-focus:w-full"></span>
@@ -92,13 +113,13 @@ const Comment = ({ comment }) => {
                         }}>
                             <h1>Cancel</h1>
                         </div>
-                        <div className={` cursor-pointer mt-1  hover:bg-opacity-30 hover:rounded-full h-8 w-[85px] flex justify-center items-center ${inputText.length >=1 ? "hover:bg-white" : "text-zinc-600 "}`} onClick={() => {
-                           {
-                            if(inputText.length >0){
-                                sendComment();
-                                setInputText("");
+                        <div className={` cursor-pointer mt-1  hover:bg-opacity-30 hover:rounded-full h-8 w-[85px] flex justify-center items-center ${inputText.length >= 1 ? "hover:bg-white" : "text-zinc-600 "}`} onClick={() => {
+                            {
+                                if (inputText.length > 0) {
+                                    sendComment();
+                                    setInputText("");
+                                }
                             }
-                           }   
                         }}>
                             <h1>Comment</h1>
                         </div>

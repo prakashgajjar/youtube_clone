@@ -37,7 +37,7 @@ const ProfileIcon = () => {
                     <div className='w-10 h-10 flex justify-center items-center z-[100] relative' onClick={()=>{
                         setShowChannel(!showChannel);
                     }} >
-                        <img src={`http://localhost:3000/banners/${channelDetailHome && channelDetailHome.profilePicture}`} alt="" className='w-8 h-8 rounded-full'  />
+                        <img src={`http://localhost:3000/banners/${(channelDetailHome && channelDetailHome.profilePicture) || "default.jpg"}`} alt="" className='w-8 h-8 rounded-full'  />
                     </div>
                 ) : (
                     <div className='w-24 h-9 flex justify-center items-center border gap-2 mt-[2px] border-white rounded-full'>

@@ -36,7 +36,7 @@ const CreateChannel = () => {
             <div >
                 <div className='w-[738px] h-[605px] bg-[#212121] rounded-lg'>
                     <div className='text-white'>
-                        <h1 className='text-3xl absolute pl-4 mt-4 font-sans font-semibold'>How you'll appear</h1>
+                        <h1 className='text-3xl absolute pl-4 mt-4 font-sans font-semibold'>How you&#39;ll appear</h1>
                     </div>
                     <div className='flex justify-center items-center h-full'>
                         <div className='flex justify-center items-center flex-col gap-12'>
