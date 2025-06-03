@@ -1,6 +1,5 @@
-# Environment
-.env
-.env.local
+\.env
+\.env.local
 
 # Node modules
 node_modules/
