@@ -1,7 +1,15 @@
-node_modules
+# Environment
 .env
-package-lock.json
+.env.local
+
+# Node modules
 node_modules/
 
+# Lock file
+package-lock.json
+
+# Public files
 public
-public/images
+public/images/
+
+
