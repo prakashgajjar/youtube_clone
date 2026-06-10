@@ -1,0 +1,11 @@
+1. login and signup is not proper make it proper or use goole login and signup
+2. pages not feel good or not show any text when we are new user 
+3. speech to text doent work 
+4. not at all proper backend 
+5. check handle already exits and make it proper 
+6. fix all icons and text 
+7. icons not work properly specialy top left
+8. scroll bar not working propely 
+9. fix the file name if its too long 
+1. when the input not come video donet start make like that 
+11. remove 1080 px and make a perfect player for it 

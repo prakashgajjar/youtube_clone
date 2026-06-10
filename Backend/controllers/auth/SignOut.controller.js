@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 
 const SignOut = async (req, res) => {
     try {
-        res.clearCookie("LoginToken", {
+        res.clearCookie("Token", {
             httpOnly: true,
             // secure: process.env.NODE_ENV === 'production', // optional, for HTTPS environments
             sameSite: 'strict',

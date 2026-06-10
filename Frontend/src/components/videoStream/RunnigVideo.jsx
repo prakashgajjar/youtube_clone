@@ -64,7 +64,8 @@ const RunningVideo = () => {
 
     const video = videoRef.current;
     const hls = new Hls();
-    const playlist = `http://localhost:3000/hls/${videoUrl}/master.m3u8`;
+    // const playlist = `http://localhost:3000/hls/${videoUrl}/master.m3u8`;
+    const playlist = videoUrl
 
     hlsRef.current = hls;
     hls.loadSource(playlist);

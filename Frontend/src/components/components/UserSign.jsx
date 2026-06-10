@@ -1,126 +1,145 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { motion } from "framer-motion";
+import { Mail, Lock, User } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const UserSign = () => {
-
   const navigate = useNavigate();
-
-  const handleSubmit = async () => {
-    if (isSignUp) {
-      const responce = await axios.post('http://localhost:3000/api/signup',
-        { username, password, email },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        }
-      )
-      if (responce.status === 201) {
-        console.log('User created successfully');
-        navigate('/');
-        window.location.reload();
-
-      } else {
-        console.error('Error', responce.message);
-      }
-    } else {
-      const responce = await axios.post('http://localhost:3000/api/signin',
-        { password, email },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        }
-      )
-      if (responce.status === 201) {
-        console.log('User login successfully');
-        console.log(responce)
-        navigate('/');
-        window.location.reload();
-
-      } else {
-        console.error('Error', responce.message);
-      }
-    }
-  }
-
   const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  return (
-    <div className="flex items-center justify-center w-screen  rounded-xl min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
+  const handleSubmit = async () => {
+    try {
+      if (!email || !password || (isSignUp && !username)) {
+        toast.error("Please fill all fields!");
+        return;
+      }
 
-      <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
-        <h2 className="text-3xl font-semibold text-white text-center">
+      console.log(email, password, username);
+
+      const url = isSignUp
+        ? "http://localhost:3000/api/signup"
+        : "http://localhost:3000/api/signin";
+
+      const payload = isSignUp
+        ? { username, email, password }
+        : { email, password };
+
+      const response = await axios.post(url, payload, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+
+      console.log(response)
+
+      if (response.status === 201) {
+        toast.success(
+          isSignUp ? "Account created successfully!" : "Logged in successfully!"
+        );
+        navigate("/home");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong!");
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white px-4">
+      <ToastContainer theme="dark" position="top-center" autoClose={2000} />
+
+      <motion.div
+        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full max-w-md bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl p-8"
+      >
+        <motion.h2
+          key={isSignUp ? "signup" : "signin"}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-3xl font-bold text-center text-white"
+        >
           {isSignUp ? "Create an Account" : "Welcome Back"}
-        </h2>
-        <p className="text-gray-300 text-center mt-2">
-          {isSignUp ? "Sign up to get started" : "Sign in to continue"}
+        </motion.h2>
+
+        <p className="text-gray-400 text-center mt-2">
+          {isSignUp
+            ? "Sign up to get started with your journey"
+            : "Sign in to continue exploring"}
         </p>
 
-        {isSignUp && (
-          <div className="mt-6">
-            <label className="text-gray-300">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your Username"
-              className="w-full mt-2 p-3 border border-gray-500 bg-gray-800 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
+        <div className="mt-6 space-y-4">
+          {isSignUp && (
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Username</label>
+              <div className="flex items-center gap-2 bg-gray-900 rounded-xl px-3 py-2 border border-gray-700 focus-within:border-red-500">
+                <User className="text-gray-500" size={18} />
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  className="bg-transparent w-full outline-none text-gray-200"
+                />
+              </div>
+            </div>
+          )}
+
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Email</label>
+            <div className="flex items-center gap-2 bg-gray-900 rounded-xl px-3 py-2 border border-gray-700 focus-within:border-red-500">
+              <Mail className="text-gray-500" size={18} />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="bg-transparent w-full outline-none text-gray-200"
+              />
+            </div>
           </div>
-        )}
 
-        <div className="mt-4">
-          <label className="text-gray-300">Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full mt-2 p-3 border border-gray-500 bg-gray-800 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-
-        <div className="mt-4">
-          <label className="text-gray-300">Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full mt-2 p-3 border border-gray-500 bg-gray-800 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Password</label>
+            <div className="flex items-center gap-2 bg-gray-900 rounded-xl px-3 py-2 border border-gray-700 focus-within:border-red-500">
+              <Lock className="text-gray-500" size={18} />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="bg-transparent w-full outline-none text-gray-200"
+              />
+            </div>
+          </div>
         </div>
 
         <button
-          onClick={() => {
-            handleSubmit();
-            setEmail('');
-            setPassword('');
-            setUsername('');
-          }}
-          type="submit"
-          className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition duration-300"
+          onClick={handleSubmit}
+          className="w-full mt-6 py-3 bg-gradient-to-r from-red-600 to-red-500 rounded-xl text-white font-semibold hover:from-red-500 hover:to-red-400 transition-all duration-300 shadow-lg shadow-red-600/20"
         >
           {isSignUp ? "Sign Up" : "Sign In"}
-
         </button>
 
-
-        <div className="mt-6 flex flex-col items-center">
-          <p className="text-gray-400 mt-3">
-            {isSignUp ? "Already have an account?" : "New here?"}
+        <div className="mt-6 text-center">
+          <p className="text-gray-400">
+            {isSignUp ? "Already have an account?" : "New here?"}{" "}
+            <button
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-red-400 hover:text-red-500 font-semibold transition"
+            >
+              {isSignUp ? "Sign In" : "Create one"}
+            </button>
           </p>
-          <button
-            className="text-red-400 hover:text-red-500 font-semibold"
-            onClick={() => setIsSignUp(!isSignUp)}
-          >
-            {isSignUp ? "Sign in" : "Create an account"}
-          </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
